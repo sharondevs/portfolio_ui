@@ -26,7 +26,7 @@ const Home = () => {
           Software Engineer
         </Heading>
         <Text color="terminal.text" fontSize="lg">
-          4+ years of experience building modern web applications
+          3+ years of expertise building scalable modern web-apps.
         </Text>
       </Box>
 
@@ -40,16 +40,22 @@ const Home = () => {
         </Text>
         <List spacing={2}>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> Frontend Development: React, TypeScript, Next.js
+            <Text as="span" color="terminal.success">→</Text> Frontend Development: ReactJS, JS, CSS
           </ListItem>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> Backend Development: Node.js, Python, RESTful APIs
+            <Text as="span" color="terminal.success">→</Text> Backend Development: Flask, ElasticSearch, Spring Boot(JavaEE), Spring Sec, REST API
           </ListItem>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> Database: PostgreSQL, MongoDB, Redis
+            <Text as="span" color="terminal.success">→</Text> Mobile: FlutterFlow, Flutter
+          </ListItem>
+          <ListItem color="terminal.text">
+            <Text as="span" color="terminal.success">→</Text> Database: PostgreSQL, MongoDB, PineconeDB, Redis
           </ListItem>
           <ListItem color="terminal.text">
             <Text as="span" color="terminal.success">→</Text> DevOps: Docker, AWS, CI/CD
+          </ListItem>
+          <ListItem color="terminal.text">
+            <Text as="span" color="terminal.success">→</Text> ML&Ops: LangChain, PyTorch
           </ListItem>
         </List>
       </MotionBox>
@@ -64,8 +70,11 @@ const Home = () => {
         </Text>
         <Text color="terminal.text" lineHeight="tall">
           I'm a passionate software engineer with a focus on building scalable and maintainable applications.
-          My experience spans across the full stack, from crafting beautiful user interfaces to designing
-          robust backend systems. I love learning new technologies and solving complex problems.
+          My experience spans working on full-stack web-apps, from enabling rich UXs to designing
+          robust backend systems. I love indulging in new tech and solving complex problems by building impactful tools.
+          <br />
+          <br />
+          Feel free to reach out to put my expertise to the test! 
         </Text>
       </MotionBox>
     </VStack>

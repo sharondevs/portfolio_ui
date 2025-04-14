@@ -17,7 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Box minH="100vh" bg="terminal.bg">
-      <Container maxW="container.lg" pt={8}>
+      <Container maxW={{ base: "90%", md: "85%", lg: "85%" }} pt={8}>
         <Flex
           as="header"
           borderBottom="1px solid"
@@ -34,9 +34,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             color="terminal.accent"
             mr={8}
           >
-            guest@portfolio:~$
+            sharon@portfolio:~$
           </Text>
-          <Flex gap={6} flexWrap="wrap">
+          <Flex gap={6} flexWrap="wrap" ml="auto">
             {navItems.map((item) => (
               <Link
                 key={item.path}
