@@ -83,7 +83,7 @@ const ExperienceItem = ({
           <Image
             src={logoUrl}
             alt={`${company} logo`}
-            boxSize="80px"
+            boxSize="60px"
             objectFit="contain"
             borderRadius="md"
             bg="white"
@@ -176,7 +176,7 @@ const Experience = () => {
         'Responsible for training, advisory, and building POCs for premier customers on Microsoft PaaS/SaaS platforms',
         'Led delivery of multi-day onsite/remote engagements for Microsoft customers across the world'
       ],
-      logoUrl: 'public/microsoft.jpg',
+      logoUrl: 'public/microsoft.png',
       technologies: ['Microsoft Intune', 'Azure AD', 'MECM', 'Microsoft Defender']
     },
   ];
