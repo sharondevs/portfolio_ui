@@ -1,7 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { motion, useScroll, useSpring, useTransform, MotionValue } from 'framer-motion';
-import React, { ReactNode, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { ReactNode, useRef } from 'react';
 
 interface ScrollContainerProps {
   children: ReactNode;
@@ -53,16 +52,7 @@ export const ScrollSection = ({ children, id }: ScrollSectionProps) => {
 };
 
 const ScrollContainer = ({ children }: ScrollContainerProps) => {
-  const location = useLocation();
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const sectionId = location.pathname.slice(1) || 'home';
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [location]);
 
   return (
     <Box

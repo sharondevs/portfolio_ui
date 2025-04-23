@@ -27,6 +27,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [shouldShowHeader, setShouldShowHeader] = useState(true);
   const [isNavigating, setIsNavigating] = useState(false);
   const navigationTimer = useRef<number | null>(null);
+  const prevLocationRef = useRef(location.pathname);
 
   const handleScroll = useCallback(throttle(() => {
     const currentScrollY = window.scrollY;
@@ -41,6 +42,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   }, 100), [isNavigating]);
 
   useEffect(() => {
+    // Skip if we're already on this location
+    if (prevLocationRef.current === location.pathname) {
+      return;
+    }
+    
     setShouldShowHeader(true);
     setIsNavigating(true);
 
@@ -60,6 +66,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         behavior: 'smooth'
       });
     }
+
+    // Update the previous location reference
+    prevLocationRef.current = location.pathname;
 
     navigationTimer.current = window.setTimeout(() => {
       setIsNavigating(false);
