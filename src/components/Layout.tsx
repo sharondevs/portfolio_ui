@@ -28,6 +28,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isNavigating, setIsNavigating] = useState(false);
   const navigationTimer = useRef<number | null>(null);
   const prevLocationRef = useRef(location.pathname);
+  const [activeSection, setActiveSection] = useState(location.pathname);
 
   const handleScroll = useCallback(throttle(() => {
     const currentScrollY = window.scrollY;
@@ -40,6 +41,29 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     
     lastScrollY.current = currentScrollY;
   }, 100), [isNavigating]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            const sectionId = entry.target.id;
+            setActiveSection(sectionId === 'home' ? '/' : `/${sectionId}`);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    // Observe all sections
+    const sections = ['home', 'experience', 'projects', 'contact'];
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     // Skip if we're already on this location
@@ -142,12 +166,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   key={item.path}
                   as={RouterLink}
                   to={item.path}
-                  color={location.pathname === item.path ? 'terminal.success' : 'terminal.text'}
+                  color={activeSection === item.path ? 'terminal.success' : 'terminal.text'}
                   position="relative"
                   _hover={{ color: 'terminal.accent' }}
                   onClick={handleNavClick}
                 >
-                  {location.pathname === item.path && (
+                  {activeSection === item.path && (
                     <MotionBox
                       layoutId="active"
                       position="absolute"
