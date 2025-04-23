@@ -149,11 +149,11 @@ const Experience = () => {
         'Implemented in-app Equifax score dashboards showcasing user spending and analytics for mortgage eligibility'
       ],
       logoUrl: 'public/ust_global.jpg',
-      technologies: ['Flutter', 'FlutterFlow']
+      technologies: ['Flutter', 'FlutterFlow', 'Google Analytics']
     },
     {
       role: 'Software Engineer (Digital Experience)',
-      company: 'Moonraft Innovation Labs (acquired by UST)',
+      company: 'Moonraft Innovation Labs (acquired by UST Global)',
       period: 'Feb 2023 - Dec 2023',
       location: 'Bangalore, India',
       description: [
@@ -164,7 +164,7 @@ const Experience = () => {
         'Led ETL team for collecting and transforming 40k+ product listing data across different ecommerce platforms'
       ],
       logoUrl: 'public/moonraft.webp',
-      technologies: ['Spring Boot', 'Flask', 'ElasticSearch', 'Pinecone', 'ETL', 'MongoDB']
+      technologies: ['Spring Boot', 'Flask', 'ElasticSearch', 'PineconeDB', 'MongoDB', 'LangChain', 'Serverless GPU']
     },
     {
       role: 'CSA-Engineering',
