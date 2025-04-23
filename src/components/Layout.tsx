@@ -67,7 +67,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     // Skip if we're already on this location
-    if (prevLocationRef.current === location.pathname) {
+    if (activeSection === location.pathname) {
       return;
     }
     
