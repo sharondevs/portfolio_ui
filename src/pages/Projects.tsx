@@ -65,10 +65,10 @@ const Projects = () => {
       link: 'https://github.com/username/task-manager',
     },
     {
-      title: 'AI Content Generator',
-      description: 'An AI-powered content generation tool using natural language processing.',
-      technologies: ['Python', 'TensorFlow', 'Flask', 'React'],
-      link: 'https://github.com/username/ai-content',
+      title: 'Data Augmentation using DCGANs',
+      description: 'Implemented a Deep Convolutional Generative Adversarial Network (DCGAN) for medical image data augmentation. The model generates synthetic chest X-ray images to enhance training datasets, based on the original 2016 paper by Alec Radford et al. Features include strided convolutions, LeakyReLU activation, and BatchNorm layers.',
+      technologies: ['Pytorch', 'GANs', 'pandas', 'Computer Vision'],
+      link: 'https://github.com/username/dcgan-medical',
     },
     {
       title: 'Analytics Dashboard',
