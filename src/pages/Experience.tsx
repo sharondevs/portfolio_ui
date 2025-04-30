@@ -1,6 +1,9 @@
 import { Box, VStack, Text, Heading, Flex, Image, HStack, Icon, useColorModeValue, Grid } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaBriefcase, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import ustGlobalLogo from '../assets/ust_global.jpg';
+import moonraftLogo from '../assets/moonraft.webp';
+import microsoftLogo from '../assets/microsoft.png';
 
 const MotionBox = motion(Box);
 
@@ -148,7 +151,7 @@ const Experience = () => {
         'Created app launch animations and complex loader widgets for file uploads',
         'Implemented in-app Equifax score dashboards showcasing user spending and analytics for mortgage eligibility'
       ],
-      logoUrl: 'public/ust_global.jpg',
+      logoUrl: ustGlobalLogo,
       technologies: ['Flutter', 'FlutterFlow', 'Google Analytics']
     },
     {
@@ -163,7 +166,7 @@ const Experience = () => {
         'Contributed to DL Vision team for Product Comparison Engine POC, generating image embeddings for vector similarity search',
         'Led ETL team for collecting and transforming 40k+ product listing data across different ecommerce platforms'
       ],
-      logoUrl: 'public/moonraft.webp',
+      logoUrl: moonraftLogo,
       technologies: ['Spring Boot', 'Flask', 'ElasticSearch', 'PineconeDB', 'MongoDB', 'LangChain', 'Serverless GPU']
     },
     {
@@ -176,7 +179,7 @@ const Experience = () => {
         'Responsible for training, advisory, and building POCs for premier customers on Microsoft PaaS/SaaS platforms',
         'Led delivery of multi-day onsite/remote engagements for Microsoft customers across the world'
       ],
-      logoUrl: 'public/microsoft.png',
+      logoUrl: microsoftLogo,
       technologies: ['Microsoft Intune', 'Azure AD', 'MECM', 'Microsoft Defender']
     },
   ];
@@ -204,4 +207,4 @@ const Experience = () => {
   );
 };
 
-export default Experience; 
+export default Experience;

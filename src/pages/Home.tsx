@@ -1,5 +1,6 @@
 import { Box, Text, VStack, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import profileImage from '../assets/profile.jpg';
 
 const MotionText = motion(Text);
 const MotionBox = motion(Box);
@@ -64,14 +65,7 @@ const Home = () => {
               $ display profile.jpg
             </Text>
           </Box>
-          <Image
-            src="/public/profile.jpg"
-            alt="Profile Photo"
-            objectFit="cover"
-            width="full"
-            height="full"
-            mt="40px"
-          />
+          <Image src={profileImage} alt="Profile Photo" objectFit="cover" width="full" height="full" mt="40px" />
         </MotionBox>
       </Box>
      
@@ -124,4 +118,4 @@ const Home = () => {
   );
 };
 
-export default Home; 
+export default Home;
