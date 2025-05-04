@@ -42,6 +42,11 @@ const ProjectCard = ({ title, description, technologies, link, status = 'complet
                 <Icon as={FaGithub} boxSize={5} />
               </Link>
             )}
+            {demoLink && (
+              <Link href={demoLink} isExternal _hover={{ color: 'terminal.success' }}>
+                <Icon as={FaExternalLinkAlt} boxSize={4} />
+              </Link>
+            )}
           </HStack>
         </HStack>
         
@@ -95,6 +100,7 @@ const Projects = () => {
       technologies: ['React', 'Node.js', 'Socket.IO', 'MongoDB'],
       status: 'in-progress' as const,
       link: 'https://github.com/yourusername/echo-chat',
+      demoLink: '',
     },
     {
       title: 'Portfolio Terminal UI',
@@ -102,7 +108,7 @@ const Projects = () => {
       technologies: ['React', 'TypeScript', 'Chakra UI', 'Framer Motion'],
       status: 'completed' as const,
       link: 'https://github.com/yourusername/portfolio-ui',
-      demoLink: 'https://portfolio.example.com',
+      demoLink: '',
     },
     {
       title: 'Visual Question Answering (VQA)',
@@ -110,7 +116,7 @@ const Projects = () => {
       technologies: ['Pytorch', 'Transformers', 'OpenAI CLIP', 'Python'],
       status: 'completed' as const,
       link: 'https://github.com/sharondevs/VQA_bot',
-      demoLink: 'https://vqa-demo.example.com',
+      demoLink: '',
     },
     {
       title: 'Data Augmentation using DCGANs',
@@ -118,6 +124,7 @@ const Projects = () => {
       technologies: ['Pytorch', 'GANs', 'pandas', 'Computer Vision'],
       status: 'completed' as const,
       link: 'https://github.com/sharondevs/DCGAN',
+      demoLink: '',
     }
   ];
 
