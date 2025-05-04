@@ -16,15 +16,30 @@ const Home = () => {
       width="full"
       >
         <Box flex={{ base: "1", md: "2" }}>
-          <MotionText
-            color="terminal.accent"
-            fontFamily="mono"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Welcome to my portfolio
-          </MotionText>
+          <Box display="flex" alignItems="center">
+            <MotionText
+              fontFamily="heading"
+              fontSize="2xl"
+              fontWeight="bold"
+              letterSpacing="wider"
+              bgGradient="linear(to-r, pink.400, purple.500)"
+              bgClip="text"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              Hi! I'm Sharon.
+            </MotionText>
+            <MotionText
+              fontSize="2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              ml={2}
+            >
+              👋
+            </MotionText>
+          </Box>
           <Heading
             size="2xl"
             mb={4}
