@@ -28,7 +28,7 @@ const Home = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              Hi! I'm Sharon.
+              Hi! I'm Sharon
             </MotionText>
             <MotionText
               fontSize="2xl"

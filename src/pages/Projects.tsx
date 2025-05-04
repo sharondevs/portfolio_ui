@@ -97,8 +97,16 @@ const Projects = () => {
       link: 'https://github.com/yourusername/echo-chat',
     },
     {
+      title: 'Portfolio Terminal UI',
+      description: 'A terminal-inspired portfolio website built with modern web technologies. Features smooth animations, responsive design, and a unique command-line interface aesthetic.',
+      technologies: ['React', 'TypeScript', 'Chakra UI', 'Framer Motion'],
+      status: 'completed' as const,
+      link: 'https://github.com/yourusername/portfolio-ui',
+      demoLink: 'https://portfolio.example.com',
+    },
+    {
       title: 'Visual Question Answering (VQA)',
-      description: 'An AI-powered system that answers questions about images using deep learning. Combines computer vision and natural language processing to understand and respond to queries about visual content.',
+      description: 'An assistive VQA system built using CLIP to answer natural language questions about real-world images from the VizWiz dataset. Combines computer vision and language understanding for accessibility-focused AI.',
       technologies: ['Pytorch', 'Transformers', 'OpenAI CLIP', 'Python'],
       status: 'completed' as const,
       link: 'https://github.com/sharondevs/VQA_bot',
@@ -110,15 +118,7 @@ const Projects = () => {
       technologies: ['Pytorch', 'GANs', 'pandas', 'Computer Vision'],
       status: 'completed' as const,
       link: 'https://github.com/sharondevs/DCGAN',
-    },
-    {
-      title: 'Portfolio Terminal UI',
-      description: 'A terminal-inspired portfolio website built with modern web technologies. Features smooth animations, responsive design, and a unique command-line interface aesthetic.',
-      technologies: ['React', 'TypeScript', 'Chakra UI', 'Framer Motion'],
-      status: 'completed' as const,
-      link: 'https://github.com/yourusername/portfolio-ui',
-      demoLink: 'https://portfolio.example.com',
-    },
+    }
   ];
 
   return (
