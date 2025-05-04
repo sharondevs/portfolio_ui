@@ -1,5 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import theme from './styles/theme';
 import Layout from './components/Layout';
 import ScrollContainer, { ScrollSection } from './components/ScrollContainer';
