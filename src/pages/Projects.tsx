@@ -1,5 +1,6 @@
-import { Box, SimpleGrid, Text, Heading, Link, Tag, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, Text, Heading, Link, Tag, Wrap, WrapItem, VStack, HStack, Icon } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const MotionBox = motion(Box);
 
@@ -8,9 +9,11 @@ interface ProjectCardProps {
   description: string;
   technologies: string[];
   link: string;
+  status?: 'completed' | 'in-progress' | 'planned';
+  demoLink?: string;
 }
 
-const ProjectCard = ({ title, description, technologies, link }: ProjectCardProps) => (
+const ProjectCard = ({ title, description, technologies, link, status = 'completed', demoLink }: ProjectCardProps) => (
   <MotionBox
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -18,35 +21,69 @@ const ProjectCard = ({ title, description, technologies, link }: ProjectCardProp
     p={6}
     border="1px solid"
     borderColor="terminal.accent"
-    borderRadius="4px"
+    borderRadius="md"
+    position="relative"
+    bg="terminal.bg"
     _hover={{
       transform: 'translateY(-4px)',
       transition: 'all 0.2s',
       borderColor: 'terminal.success',
     }}
   >
-    <Link href={link} isExternal color="terminal.accent" _hover={{ textDecoration: 'none' }}>
-      <Heading size="md" mb={3} color="terminal.success">
-        {title}
-      </Heading>
-    </Link>
-    <Text color="terminal.text" mb={4}>
-      {description}
-    </Text>
-    <Wrap spacing={2}>
-      {technologies.map((tech, index) => (
-        <WrapItem key={index}>
-          <Tag
-            size="sm"
-            bg="terminal.secondary"
-            color="terminal.text"
-            borderRadius="full"
-          >
-            {tech}
-          </Tag>
-        </WrapItem>
-      ))}
-    </Wrap>
+    <VStack align="stretch" spacing={4}>
+      <Box>
+        <HStack justify="space-between" align="flex-start" mb={2}>
+          <Heading size="md" color="terminal.success">
+            {title}
+          </Heading>
+          <HStack spacing={3}>
+            {link && (
+              <Link href={link} isExternal _hover={{ color: 'terminal.success' }}>
+                <Icon as={FaGithub} boxSize={5} />
+              </Link>
+            )}
+          </HStack>
+        </HStack>
+        
+        <Tag
+          size="sm"
+          colorScheme={
+            status === 'completed' ? 'green' : 
+            status === 'in-progress' ? 'yellow' : 
+            'gray'
+          }
+          mb={3}
+        >
+          {status}
+        </Tag>
+      </Box>
+
+      <Text color="terminal.text" fontSize="sm" lineHeight="tall">
+        {description}
+      </Text>
+
+      <Box>
+        <Text color="terminal.muted" fontSize="xs" mb={2}>
+          $ tech stack
+        </Text>
+        <Wrap spacing={2}>
+          {technologies.map((tech, index) => (
+            <WrapItem key={index}>
+              <Tag
+                size="sm"
+                bg="terminal.secondary"
+                color="terminal.text"
+                borderRadius="full"
+                px={3}
+                fontSize="xs"
+              >
+                {tech}
+              </Tag>
+            </WrapItem>
+          ))}
+        </Wrap>
+      </Box>
+    </VStack>
   </MotionBox>
 );
 
@@ -54,48 +91,57 @@ const Projects = () => {
   const projects = [
     {
       title: 'ECHO-chat',
-      description: 'TBD..',
-      technologies: [],
-      // link: '',
+      description: 'A real-time chat application with end-to-end encryption and support for multiple chat rooms. Features include file sharing, message history, and user presence indicators.',
+      technologies: ['React', 'Node.js', 'Socket.IO', 'MongoDB'],
+      status: 'in-progress' as const,
+      link: 'https://github.com/yourusername/echo-chat',
     },
     {
       title: 'Visual Question Answering (VQA)',
-      description: 'A collaborative task management system with real-time updates and team features.',
-      technologies: ['Pytorch', 'Transformers', 'OpenAI CLIP'],
+      description: 'An AI-powered system that answers questions about images using deep learning. Combines computer vision and natural language processing to understand and respond to queries about visual content.',
+      technologies: ['Pytorch', 'Transformers', 'OpenAI CLIP', 'Python'],
+      status: 'completed' as const,
       link: 'https://github.com/sharondevs/VQA_bot',
+      demoLink: 'https://vqa-demo.example.com',
     },
     {
       title: 'Data Augmentation using DCGANs',
-      description: 'Implemented a Deep Convolutional Generative Adversarial Network (DCGAN) for medical image data augmentation. The model generates synthetic chest X-ray images to enhance training datasets, based on the original 2016 paper by Alec Radford et al. Features include strided convolutions, LeakyReLU activation, and BatchNorm layers.',
+      description: 'A Deep Convolutional GAN implementation for medical image synthesis. Generates realistic chest X-ray images to enhance training datasets, improving medical image classification models.',
       technologies: ['Pytorch', 'GANs', 'pandas', 'Computer Vision'],
+      status: 'completed' as const,
       link: 'https://github.com/sharondevs/DCGAN',
     },
     {
-      title: 'TBD',
-      description: '',
-      technologies: ['Vue.js', 'D3.js', 'Express', 'Redis'],
-      link: 'https://github.com/username/analytics',
+      title: 'Portfolio Terminal UI',
+      description: 'A terminal-inspired portfolio website built with modern web technologies. Features smooth animations, responsive design, and a unique command-line interface aesthetic.',
+      technologies: ['React', 'TypeScript', 'Chakra UI', 'Framer Motion'],
+      status: 'completed' as const,
+      link: 'https://github.com/yourusername/portfolio-ui',
+      demoLink: 'https://portfolio.example.com',
     },
   ];
 
   return (
-    <Box>
-      <Box mb={8}>
+    <VStack spacing={8} align="stretch">
+      <Box>
         <Text color="terminal.muted" fontFamily="mono">
           $ ls -l
         </Text>
-        <Text color="terminal.accent" fontFamily="mono">
+        <Text color="terminal.accent" fontFamily="mono" mb={4}>
           /projects
+        </Text>
+        <Text color="terminal.text" fontSize="sm">
+          A collection of projects I've worked on. Each project is a learning experience and a step forward in my journey.
         </Text>
       </Box>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+      <VStack spacing={6} align="stretch">
         {projects.map((project, index) => (
           <ProjectCard key={index} {...project} />
         ))}
-      </SimpleGrid>
-    </Box>
+      </VStack>
+    </VStack>
   );
 };
 
-export default Projects; 
+export default Projects;
