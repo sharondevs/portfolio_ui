@@ -95,18 +95,18 @@ const ProjectCard = ({ title, description, technologies, link, status = 'complet
 const Projects = () => {
   const projects = [
     {
-      title: 'ECHO-chat',
-      description: 'A real-time chat application with end-to-end encryption and support for multiple chat rooms. Features include file sharing, message history, and user presence indicators.',
-      technologies: ['React', 'Node.js', 'Socket.IO', 'MongoDB'],
+      title: 'ECHO',
+      description: 'Coming soon!',
+      technologies: ['Agentic', 'Reasoning', 'Chain-of-Thought', '*****'],
       status: 'in-progress' as const,
       link: 'https://github.com/yourusername/echo-chat',
       demoLink: '',
     },
     {
-      title: 'Portfolio Terminal UI',
-      description: 'A terminal-inspired portfolio website built with modern web technologies. Features smooth animations, responsive design, and a unique command-line interface aesthetic.',
-      technologies: ['React', 'TypeScript', 'Chakra UI', 'Framer Motion'],
-      status: 'completed' as const,
+      title: 'ECHO-chat',
+      description: 'Engaged Conversation with Human Oversight (ECHO) chat is a responsive chatbot powered by large language model, designed for natural, context-aware conversations across a wide range of topics.',
+      technologies: [ 'LLM','Chain-of-Thought', 'Ollama', 'HuggingFace'],
+      status: 'in-progress' as const,
       link: 'https://github.com/yourusername/portfolio-ui',
       demoLink: '',
     },
