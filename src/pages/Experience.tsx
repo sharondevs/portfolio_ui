@@ -7,7 +7,7 @@ import microsoftLogo from '../assets/microsoft.png';
 
 const MotionBox = motion(Box);
 
-type CompanyName = 'UST Global' | 'Moonraft Innovation Labs (acquired by UST)' | 'Microsoft';
+type CompanyName = 'UST Global' | 'Moonraft Innovation Labs (acquired by UST Global)' | 'Microsoft';
 
 const TechnologyBadge = ({ tech }: { tech: string }) => {
   return (
