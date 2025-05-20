@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import ScrollContainer, { ScrollSection } from './components/ScrollContainer';
 import Home from './pages/Home';
 import Experience from './pages/Experience';
+import Education from './pages/Education';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 
@@ -20,6 +21,10 @@ function App() {
 
             <ScrollSection id="experience">
               <Experience />
+            </ScrollSection>
+
+            <ScrollSection id="education">
+              <Education />
             </ScrollSection>
 
             <ScrollSection id="projects">
