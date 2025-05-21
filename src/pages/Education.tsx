@@ -1,4 +1,4 @@
-import { Box, VStack, Text, Heading, Flex, Image, HStack, Icon, useColorModeValue, Badge, Grid, GridItem } from '@chakra-ui/react';
+import { Box, VStack, Text, Heading, Flex, Image, HStack, Icon, useColorModeValue, Badge, Grid, GridItem, useBreakpointValue } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaGraduationCap, FaCalendarAlt, FaMapMarkerAlt, FaBook } from 'react-icons/fa';
 
@@ -56,80 +56,23 @@ const EducationItem = ({
 }: EducationItemProps) => {
   const bgColor = useColorModeValue('whiteAlpha.900', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
     <Grid
-      templateColumns="1fr auto 1fr"
+      templateColumns={{ base: "auto 1fr", md: "1fr auto 1fr" }}
       gap={4}
-      alignItems="center"
+      alignItems="flex-start"
       position="relative"
       mb={8}
+      mx={{ base: 4, md: 0 }}
     >
-      {/* Left side content */}
-      <GridItem colSpan={1} textAlign={isLeft ? "right" : "center"}>
-        {isLeft && (
-          <MotionBox
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            p={6}
-            borderRadius="xl"
-            boxShadow="lg"
-            bg={bgColor}
-            border="1px"
-            borderColor={borderColor}
-            _hover={{ transform: 'translateX(-5px)', transition: 'all 0.3s ease' }}
-          >
-            <Flex direction="column" align="end">
-              <Image
-                src={logoUrl}
-                alt={`${university} logo`}
-                boxSize="60px"
-                objectFit="contain"
-                borderRadius="md"
-                bg="white"
-                p={2}
-                mb={4}
-              />
-              <Heading size="md" color="terminal.success" mb={2}>
-                {degree}
-              </Heading>
-              <HStack spacing={2} mb={2} justify="flex-end">
-                <Icon as={FaGraduationCap} color="terminal.accent" />
-                <Text color="terminal.accent">{university}</Text>
-              </HStack>
-              <HStack spacing={2} mb={2} justify="flex-end">
-                <Icon as={FaCalendarAlt} color="terminal.muted" />
-                <Text fontSize="sm" color="terminal.muted">{period}</Text>
-              </HStack>
-              <HStack spacing={2} mb={4} justify="flex-end">
-                <Icon as={FaMapMarkerAlt} color="terminal.muted" />
-                <Text fontSize="sm" color="terminal.muted">{location}</Text>
-              </HStack>
-              <HStack spacing={2} mb={4} justify="flex-end">
-                <Text color="terminal.text" fontWeight="bold">GPA:</Text>
-                <Text color="terminal.accent">{gpa}</Text>
-              </HStack>
-              <Box>
-                <HStack mb={2} justify="flex-end">
-                  <Icon as={FaBook} color="terminal.muted" />
-                  <Text color="terminal.muted" fontSize="sm" fontWeight="medium">
-                    Relevant Coursework
-                  </Text>
-                </HStack>
-                <Flex flexWrap="wrap" gap={3} justify="flex-end">
-                  {coursework.map((course, index) => (
-                    <CourseTag key={index} course={course} />
-                  ))}
-                </Flex>
-              </Box>
-            </Flex>
-          </MotionBox>
-        )}
-      </GridItem>
-
-      {/* Timeline center */}
-      <GridItem colSpan={1} justifySelf="center" height="100%">
+      {/* Timeline center - Moved to first column on mobile */}
+      <GridItem 
+        justifySelf={{ base: "start", md: "center" }}
+        height="100%"
+        order={{ base: 1, md: 2 }}
+      >
         <Flex
           direction="column"
           alignItems="center"
@@ -158,68 +101,82 @@ const EducationItem = ({
         </Flex>
       </GridItem>
 
-      {/* Right side content */}
-      <GridItem colSpan={1} textAlign={!isLeft ? "left" : "center"}>
-        {!isLeft && (
-          <MotionBox
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            p={6}
-            borderRadius="xl"
-            boxShadow="lg"
-            bg={bgColor}
-            border="1px"
-            borderColor={borderColor}
-            _hover={{ transform: 'translateX(5px)', transition: 'all 0.3s ease' }}
+      {/* Content - Always on right side of timeline on mobile */}
+      <GridItem 
+        colSpan={1}
+        order={{ base: 2, md: isLeft ? 1 : 3 }}
+        textAlign={{ base: "left", md: isLeft ? "right" : "left" }}
+      >
+        <MotionBox
+          initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          p={6}
+          borderRadius="xl"
+          boxShadow="lg"
+          bg={bgColor}
+          border="1px"
+          borderColor={borderColor}
+          _hover={{ transform: isLeft && !isMobile ? 'translateX(-5px)' : 'translateX(5px)', transition: 'all 0.3s ease' }}
+        >
+          <Flex 
+            direction="column" 
+            align={{ base: "start", md: isLeft ? "end" : "start" }}
           >
-            <Flex direction="column" align="start">
-              <Image
-                src={logoUrl}
-                alt={`${university} logo`}
-                boxSize="60px"
-                objectFit="contain"
-                borderRadius="md"
-                bg="white"
-                p={2}
-                mb={4}
-              />
-              <Heading size="md" color="terminal.success" mb={2}>
-                {degree}
-              </Heading>
-              <HStack spacing={2} mb={2}>
-                <Icon as={FaGraduationCap} color="terminal.accent" />
-                <Text color="terminal.accent">{university}</Text>
+            <Image
+              src={logoUrl}
+              alt={`${university} logo`}
+              boxSize="60px"
+              objectFit="contain"
+              borderRadius="md"
+              bg="white"
+              p={2}
+              mb={4}
+            />
+            <Heading size="md" color="terminal.success" mb={2}>
+              {degree}
+            </Heading>
+            <HStack spacing={2} mb={2} justify={{ base: "flex-start", md: isLeft ? "flex-end" : "flex-start" }}>
+              <Icon as={FaGraduationCap} color="terminal.accent" />
+              <Text color="terminal.accent">{university}</Text>
+            </HStack>
+            <HStack spacing={2} mb={2} justify={{ base: "flex-start", md: isLeft ? "flex-end" : "flex-start" }}>
+              <Icon as={FaCalendarAlt} color="terminal.muted" />
+              <Text fontSize="sm" color="terminal.muted">{period}</Text>
+            </HStack>
+            <HStack spacing={2} mb={4} justify={{ base: "flex-start", md: isLeft ? "flex-end" : "flex-start" }}>
+              <Icon as={FaMapMarkerAlt} color="terminal.muted" />
+              <Text fontSize="sm" color="terminal.muted">{location}</Text>
+            </HStack>
+            <HStack spacing={2} mb={4} justify={{ base: "flex-start", md: isLeft ? "flex-end" : "flex-start" }}>
+              <Text color="terminal.text" fontWeight="bold">GPA:</Text>
+              <Text color="terminal.accent">{gpa}</Text>
+            </HStack>
+            <Box w="100%">
+              <HStack mb={2} justify={{ base: "flex-start", md: isLeft ? "flex-end" : "flex-start" }}>
+                <Icon as={FaBook} color="terminal.muted" />
+                <Text color="terminal.muted" fontSize="sm" fontWeight="medium">
+                  Relevant Coursework
+                </Text>
               </HStack>
-              <HStack spacing={2} mb={2}>
-                <Icon as={FaCalendarAlt} color="terminal.muted" />
-                <Text fontSize="sm" color="terminal.muted">{period}</Text>
-              </HStack>
-              <HStack spacing={2} mb={4}>
-                <Icon as={FaMapMarkerAlt} color="terminal.muted" />
-                <Text fontSize="sm" color="terminal.muted">{location}</Text>
-              </HStack>
-              <HStack spacing={2} mb={4}>
-                <Text color="terminal.text" fontWeight="bold">GPA:</Text>
-                <Text color="terminal.accent">{gpa}</Text>
-              </HStack>
-              <Box>
-                <HStack mb={2}>
-                  <Icon as={FaBook} color="terminal.muted" />
-                  <Text color="terminal.muted" fontSize="sm" fontWeight="medium">
-                    Relevant Coursework
-                  </Text>
-                </HStack>
-                <Flex flexWrap="wrap" gap={3}>
-                  {coursework.map((course, index) => (
-                    <CourseTag key={index} course={course} />
-                  ))}
-                </Flex>
-              </Box>
-            </Flex>
-          </MotionBox>
-        )}
+              <Flex 
+                flexWrap="wrap" 
+                gap={3}
+                justify={{ base: "flex-start", md: isLeft ? "flex-end" : "flex-start" }}
+              >
+                {coursework.map((course, index) => (
+                  <CourseTag key={index} course={course} />
+                ))}
+              </Flex>
+            </Box>
+          </Flex>
+        </MotionBox>
       </GridItem>
+
+      {/* Empty column for desktop layout */}
+      {!isMobile && (
+        <GridItem colSpan={1} order={isLeft ? 3 : 1} />
+      )}
     </Grid>
   );
 };
