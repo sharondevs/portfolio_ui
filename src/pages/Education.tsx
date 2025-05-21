@@ -195,7 +195,7 @@ const Education = () => {
       degree: 'Masters in Computer Science (Specialization in AI/ML)',
       period: 'August 2024 - present',
       location: 'New York, United States',
-      gpa: '3.7/4',
+      gpa: '3.75/4',
       coursework: [
         'Machine Learning',
         'Deep Learning',
