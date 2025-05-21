@@ -56,7 +56,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     );
 
     // Observe all sections
-    const sections = ['home', 'experience', 'education', 'projects', 'contact'];
+    const sections = ['home', 'experience', 'education', 'projects', 'resume', 'contact'];
     sections.forEach((sectionId) => {
       const element = document.getElementById(sectionId);
       if (element) observer.observe(element);
@@ -120,6 +120,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     { path: '/experience', label: '~/experience' },
     { path: '/education', label: '~/education' },
     { path: '/projects', label: '~/projects' },
+    { path: '/resume', label: '~/resume' },
     { path: '/contact', label: '~/contact' },
   ];
 

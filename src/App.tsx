@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Experience from './pages/Experience';
 import Education from './pages/Education';
 import Projects from './pages/Projects';
+import Resume from './pages/Resume';
 import Contact from './pages/Contact';
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
 
             <ScrollSection id="projects">
               <Projects />
+            </ScrollSection>
+
+            <ScrollSection id="resume">
+              <Resume />
             </ScrollSection>
 
             <ScrollSection id="contact">
