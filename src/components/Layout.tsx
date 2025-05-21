@@ -117,6 +117,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const handleNavClick = useCallback((path: string) => {
     setIsNavigating(true);
     setShouldShowHeader(true);
+    setActiveSection(path);  // Set active section immediately
     const sectionId = path === '/' ? 'home' : path.slice(1);
     const element = document.getElementById(sectionId);
     if (element) {
