@@ -9,7 +9,7 @@ const Resume = () => {
   const borderColor = useColorModeValue('gray.200', 'gray.700');
 
   const handleDownload = () => {
-    const resumeUrl = '../assets/resume_Sharon_may_2025.pdf';
+    const resumeUrl = '../resume_Sharon_may_2025.pdf';
     window.open(resumeUrl, '_blank');
   };
 
@@ -82,7 +82,7 @@ const Resume = () => {
           borderColor={borderColor}
         >
           <iframe
-            src="../assets/resume_Sharon_may_2025.pdf#view=FitH"
+            src="../resume_Sharon_may_2025.pdf#view=FitH"
             width="100%"
             height="100%"
             style={{ border: 'none' }}
