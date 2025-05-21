@@ -29,13 +29,14 @@ const CourseTag = ({ course }: { course: string }) => {
       borderColor="terminal.accent"
       borderRadius="md"
       px={4}
-      height="32px"
+      height="auto"
+      minHeight="32px"
       display="inline-flex"
       alignItems="center"
       justifyContent="center"
       fontSize="sm"
       fontWeight="normal"
-      whiteSpace="nowrap"
+      whiteSpace="normal"
       _hover={{ bg: 'terminal.accent', color: 'white' }}
       transition="all 0.2s"
     >
@@ -65,13 +66,15 @@ const EducationItem = ({
       alignItems="flex-start"
       position="relative"
       mb={8}
-      mx={{ base: 4, md: 0 }}
+      mx={{ base: 2, md: 0 }}
+      maxW="100%"
     >
       {/* Timeline center - Moved to first column on mobile */}
       <GridItem 
         justifySelf={{ base: "start", md: "center" }}
         height="100%"
         order={{ base: 1, md: 2 }}
+        w={{ base: "30px", md: "auto" }}
       >
         <Flex
           direction="column"
@@ -106,22 +109,26 @@ const EducationItem = ({
         colSpan={1}
         order={{ base: 2, md: isLeft ? 1 : 3 }}
         textAlign={{ base: "left", md: isLeft ? "right" : "left" }}
+        maxW="100%"
       >
         <MotionBox
           initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          p={6}
+          p={{ base: 4, md: 6 }}
           borderRadius="xl"
           boxShadow="lg"
           bg={bgColor}
           border="1px"
           borderColor={borderColor}
           _hover={{ transform: isLeft && !isMobile ? 'translateX(-5px)' : 'translateX(5px)', transition: 'all 0.3s ease' }}
+          maxW="100%"
+          wordBreak="break-word"
         >
           <Flex 
             direction="column" 
             align={{ base: "start", md: isLeft ? "end" : "start" }}
+            w="100%"
           >
             <Image
               src={logoUrl}
