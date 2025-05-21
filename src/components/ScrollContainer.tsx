@@ -1,6 +1,6 @@
-import { Box } from '@chakra-ui/react';
-import { motion, useScroll, useSpring, useTransform, MotionValue } from 'framer-motion';
-import React, { ReactNode, useRef } from 'react';
+import { Box, useBreakpointValue } from '@chakra-ui/react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { ReactNode, useRef } from 'react';
 
 interface ScrollContainerProps {
   children: ReactNode;
@@ -12,11 +12,12 @@ interface ScrollSectionProps {
 }
 
 export const ScrollSection = ({ children, id }: ScrollSectionProps) => {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
-  }) as { scrollYProgress: MotionValue<number> };
+  });
 
   const opacity = useSpring(
     useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]),
@@ -42,25 +43,33 @@ export const ScrollSection = ({ children, id }: ScrollSectionProps) => {
         minH="100vh"
         width="100%"
         py={10}
-        px={4}
+        px={isMobile ? 4 : 4}
         position="relative"
       >
-        {children}
+        <Box
+          bg="terminal.bg"
+          borderRadius={isMobile ? "2xl" : "none"}
+          overflow="hidden"
+          boxShadow={isMobile ? "xl" : "none"}
+          border={isMobile ? "1px solid" : "none"}
+          borderColor="terminal.accent"
+          p={isMobile ? 6 : 0}
+          transform={isMobile ? "scale(0.98)" : "none"}
+          transition="transform 0.2s"
+          _hover={isMobile ? { transform: "scale(0.99)" } : {}}
+        >
+          {children}
+        </Box>
       </Box>
     </motion.div>
   );
 };
 
 const ScrollContainer = ({ children }: ScrollContainerProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <Box
-      ref={containerRef}
-      position="relative"
-    >
+    <div>
       {children}
-    </Box>
+    </div>
   );
 };
 
