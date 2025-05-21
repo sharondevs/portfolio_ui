@@ -1,7 +1,6 @@
 import { Box, useBreakpointValue } from '@chakra-ui/react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ReactNode, useRef, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { ReactNode, useRef } from 'react';
 
 interface ScrollContainerProps {
   children: ReactNode;
@@ -11,8 +10,6 @@ interface ScrollSectionProps {
   children: ReactNode;
   id: string;
 }
-
-const ROUTES = ['', 'experience', 'education', 'projects', 'resume', 'contact'];
 
 export const ScrollSection = ({ children, id }: ScrollSectionProps) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -69,26 +66,6 @@ export const ScrollSection = ({ children, id }: ScrollSectionProps) => {
 };
 
 const ScrollContainer = ({ children }: ScrollContainerProps) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [currentPageIndex, setCurrentPageIndex] = useState(() => {
-    const path = location.pathname.slice(1);
-    return Math.max(0, ROUTES.indexOf(path));
-  });
-
-  useEffect(() => {
-    const path = location.pathname.slice(1);
-    const index = Math.max(0, ROUTES.indexOf(path));
-    setCurrentPageIndex(index);
-  }, [location]);
-
-  const navigateToPage = (index: number) => {
-    const newPath = ROUTES[index];
-    navigate(`/${newPath}`);
-    setCurrentPageIndex(index);
-  };
-
   return (
     <div>
       {children}

@@ -61,7 +61,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     const sections = ['home', 'experience', 'education', 'projects', 'resume', 'contact'];
     sections.forEach((sectionId) => {
       const element = document.getElementById(sectionId);
-      if (element) observer.observe(element);
+      if (element) {
+        observer.observe(element);
+      }
     });
 
     return () => observer.disconnect();
@@ -115,8 +117,20 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const handleNavClick = useCallback((path: string) => {
     setIsNavigating(true);
     setShouldShowHeader(true);
+    const sectionId = path === '/' ? 'home' : path.slice(1);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      const isScrollingUp = rect.top < 0;
+      const elementPosition = window.pageYOffset + rect.top;
+      
+      window.scrollTo({
+        top: isScrollingUp ? elementPosition : elementPosition - HEADER_HEIGHT - 20,
+        behavior: 'smooth'
+      });
+    }
     onClose();
-  }, [onClose]);
+  }, [onClose, HEADER_HEIGHT]);
 
   const navItems = [
     { path: '/', label: '~/home' },
