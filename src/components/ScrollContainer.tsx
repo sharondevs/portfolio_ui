@@ -1,5 +1,5 @@
 import { Box, useBreakpointValue } from '@chakra-ui/react';
-import { motion, useScroll, useTransform, PanInfo, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ReactNode, useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -72,11 +72,8 @@ const ScrollContainer = ({ children }: ScrollContainerProps) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const navigate = useNavigate();
   const location = useLocation();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const y = useMotionValue(0);
-  const [isDragging, setIsDragging] = useState(false);
   const [currentPageIndex, setCurrentPageIndex] = useState(() => {
-    const path = location.pathname.slice(1); // Remove leading slash
+    const path = location.pathname.slice(1);
     return Math.max(0, ROUTES.indexOf(path));
   });
 
@@ -86,50 +83,16 @@ const ScrollContainer = ({ children }: ScrollContainerProps) => {
     setCurrentPageIndex(index);
   }, [location]);
 
-  const handleDragStart = () => {
-    if (isMobile) {
-      setIsDragging(true);
-    }
-  };
-
   const navigateToPage = (index: number) => {
     const newPath = ROUTES[index];
     navigate(`/${newPath}`);
     setCurrentPageIndex(index);
   };
 
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (isMobile) {
-      setIsDragging(false);
-      const velocity = info.velocity.y;
-      const offset = info.offset.y;
-
-      if (Math.abs(velocity) > 100 || Math.abs(offset) > 50) {
-        const direction = velocity < 0 || offset < 0 ? 1 : -1;
-        const newIndex = Math.min(
-          Math.max(0, currentPageIndex + direction),
-          ROUTES.length - 1
-        );
-
-        if (newIndex !== currentPageIndex) {
-          navigateToPage(newIndex);
-        }
-      }
-    }
-  };
-
   return (
-    <motion.div
-      ref={containerRef}
-      style={{ y }}
-      drag={isMobile ? "y" : false}
-      dragConstraints={{ top: 0, bottom: 0 }}
-      dragElastic={0.1}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
+    <div>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
