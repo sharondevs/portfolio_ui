@@ -29,6 +29,9 @@ const Link = defineStyleConfig({
       textDecoration: 'none',
       color: 'terminal.success',
     },
+    _after: {
+      display: 'none', // This will hide the external link icon
+    },
   },
 });
 
@@ -67,4 +70,4 @@ const theme = extendTheme({
   },
 });
 
-export default theme; 
+export default theme;
