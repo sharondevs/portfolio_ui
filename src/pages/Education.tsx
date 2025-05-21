@@ -110,7 +110,7 @@ const EducationItem = ({
                 <Text color="terminal.text" fontWeight="bold">GPA:</Text>
                 <Text color="terminal.accent">{gpa}</Text>
               </HStack>
-              {/* <Box>
+              <Box>
                 <HStack mb={2} justify="flex-end">
                   <Icon as={FaBook} color="terminal.muted" />
                   <Text color="terminal.muted" fontSize="sm" fontWeight="medium">
@@ -122,7 +122,7 @@ const EducationItem = ({
                     <CourseTag key={index} course={course} />
                   ))}
                 </Flex>
-              </Box> */}
+              </Box>
             </Flex>
           </MotionBox>
         )}
