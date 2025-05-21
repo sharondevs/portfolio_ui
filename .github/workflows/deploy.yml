@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev
+      - prod
 
 permissions:
   contents: write
