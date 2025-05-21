@@ -226,7 +226,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent bg="terminal.bg">
-          <DrawerCloseButton color="terminal.accent" />
+          <DrawerCloseButton color="terminal.accent" marginTop="8px"/>
           <DrawerHeader borderBottomWidth="1px" borderColor={borderColor}>
             <Text color="terminal.accent" fontFamily="mono">Navigation</Text>
           </DrawerHeader>
