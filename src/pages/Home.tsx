@@ -63,7 +63,7 @@ const Home = () => {
           overflow="hidden"
           position="relative"
           width={{ base: "full", md: "300px" }}
-          height={{ base: "300px", md: "300px" }}
+          height={{ base: "400px", md: "300px" }}  // Increased height for mobile
           
         >
           <Box
