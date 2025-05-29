@@ -3,6 +3,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import Echo from './Echo';
 
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
@@ -256,6 +257,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {children}
         </Box>
       </Container>
+
+      {/* Add Echo component */}
+      <Echo />
     </Box>
   );
 };
