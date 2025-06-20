@@ -22,6 +22,28 @@ const Button = defineStyleConfig({
   },
 });
 
+const Card = defineStyleConfig({
+  baseStyle: {
+    container: {
+      bg: 'terminal.secondary',
+      borderColor: 'terminal.muted',
+      borderWidth: '1px',
+      borderRadius: 'md',
+    },
+  },
+  variants: {
+    echo: {
+      container: {
+        bg: 'terminal.secondary',
+        borderColor: 'terminal.accent',
+        borderWidth: '1px',
+        borderRadius: 'md',
+        boxShadow: '0 0 10px rgba(122, 162, 247, 0.1)',
+      },
+    },
+  },
+});
+
 const Link = defineStyleConfig({
   baseStyle: {
     color: 'terminal.accent',
@@ -50,6 +72,8 @@ const theme = extendTheme({
       error: '#f7768e',
       warning: '#e0af68',
       muted: '#565f89',
+      cardBg: '#24283b',
+      inputBg: '#1f2335',
     },
   },
   fonts: {
@@ -62,10 +86,74 @@ const theme = extendTheme({
         bg: 'terminal.bg',
         color: 'terminal.text',
       },
+      // Global styles for ReactMarkdown content
+      '.markdown-content': {
+        h1: {
+          fontSize: 'xl',
+          fontWeight: 'bold',
+          mb: 3,
+          color: 'terminal.accent',
+        },
+        h2: {
+          fontSize: 'lg',
+          fontWeight: 'bold',
+          mb: 2,
+          color: 'terminal.accent',
+        },
+        h3: {
+          fontSize: 'md',
+          fontWeight: 'bold',
+          mb: 2,
+          color: 'terminal.accent',
+        },
+        p: {
+          mb: 2,
+          lineHeight: '1.6',
+        },
+        ul: {
+          mb: 2,
+          pl: 4,
+        },
+        ol: {
+          mb: 2,
+          pl: 4,
+        },
+        li: {
+          mb: 1,
+        },
+        code: {
+          bg: 'terminal.inputBg',
+          color: 'terminal.accent',
+          px: 1,
+          py: 0.5,
+          borderRadius: 'sm',
+          fontSize: 'sm',
+        },
+        pre: {
+          bg: 'terminal.inputBg',
+          p: 3,
+          borderRadius: 'md',
+          overflow: 'auto',
+          mb: 3,
+          code: {
+            bg: 'transparent',
+            p: 0,
+          },
+        },
+        blockquote: {
+          borderLeft: '4px solid',
+          borderColor: 'terminal.accent',
+          pl: 4,
+          ml: 0,
+          fontStyle: 'italic',
+          color: 'terminal.muted',
+        },
+      },
     },
   },
   components: {
     Button,
+    Card,
     Link,
   },
 });

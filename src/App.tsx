@@ -1,5 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { HashRouter as Router } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import theme from './styles/theme';
 import Layout from './components/Layout';
 import ScrollContainer, { ScrollSection } from './components/ScrollContainer';
@@ -9,38 +9,47 @@ import Education from './pages/Education';
 import Projects from './pages/Projects';
 import Resume from './pages/Resume';
 import Contact from './pages/Contact';
+import EchoChatApp from './pages/echo-chat';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Router>
-        <Layout>
-          <ScrollContainer>
-            <ScrollSection id="home">
-              <Home />
-            </ScrollSection>
+        <Routes>
+          {/* Echo Chat Route - Separate Layout */}
+          <Route path="/echo-chat" element={<EchoChatApp />} />
+          
+          {/* Main Portfolio Routes */}
+          <Route path="/*" element={
+            <Layout>
+              <ScrollContainer>
+                <ScrollSection id="home">
+                  <Home />
+                </ScrollSection>
 
-            <ScrollSection id="experience">
-              <Experience />
-            </ScrollSection>
+                <ScrollSection id="experience">
+                  <Experience />
+                </ScrollSection>
 
-            <ScrollSection id="education">
-              <Education />
-            </ScrollSection>
+                <ScrollSection id="education">
+                  <Education />
+                </ScrollSection>
 
-            <ScrollSection id="projects">
-              <Projects />
-            </ScrollSection>
+                <ScrollSection id="projects">
+                  <Projects />
+                </ScrollSection>
 
-            <ScrollSection id="resume">
-              <Resume />
-            </ScrollSection>
+                <ScrollSection id="resume">
+                  <Resume />
+                </ScrollSection>
 
-            <ScrollSection id="contact">
-              <Contact />
-            </ScrollSection>
-          </ScrollContainer>
-        </Layout>
+                <ScrollSection id="contact">
+                  <Contact />
+                </ScrollSection>
+              </ScrollContainer>
+            </Layout>
+          } />
+        </Routes>
       </Router>
     </ChakraProvider>
   );
