@@ -305,23 +305,23 @@ function EchoChatApp() {
         top={0}
         left={0}
         right={0}
-        height="80px"
+        height={{ base: "60px", md: "80px" }}
         zIndex={1000}
-                  bg="terminal.bg"
+        bg="terminal.bg"
       >
-        <Container maxW={{ base: "90%", md: "85%", lg: "85%" }} h="100%" py={4}>
+        <Container maxW={{ base: "95%", md: "85%", lg: "85%" }} h="100%" py={{ base: 2, md: 4 }}>
           <Flex
             flexDir="row"
             alignItems="center"
             justify="space-between"
             borderBottom="1px solid"
             borderColor={borderColor}
-            pb={4}
+            pb={{ base: 2, md: 4 }}
             h="100%"
           >
-            <HStack spacing={4}>
+            <HStack spacing={{ base: 2, md: 4 }}>
               <IconButton
-                icon={<ArrowLeft size={20} />}
+                icon={<ArrowLeft size={16} />}
                 aria-label="Back to portfolio"
                 variant="ghost"
                 color={accentColor}
@@ -329,6 +329,7 @@ function EchoChatApp() {
                 borderRadius="lg"
                 border="1px solid"
                 borderColor={accentColor}
+                display={{ base: "none", md: "flex" }}
                 _hover={{ 
                   bg: 'terminal.success', 
                   color: 'terminal.bg',
@@ -338,21 +339,22 @@ function EchoChatApp() {
                 onClick={() => navigate('/')}
               />
               <Text
-                fontSize="lg"
+                fontSize={{ base: "md", md: "lg" }}
                 fontFamily="mono"
                 bgGradient="linear(to-r, terminal.accent, terminal.success)"
                 bgClip="text"
                 fontWeight="bold"
+                noOfLines={1}
               >
-                sharon@echo-chat:~$
+                <Box as="span" display={{ base: "none", md: "inline" }}>sharon@</Box>echo-chat<Box as="span" display={{ base: "none", md: "inline" }}>:~$</Box>
               </Text>
             </HStack>
 
-            <HStack spacing={2}>
+            <HStack spacing={{ base: 1, md: 2 }}>
               <Button
                 variant={mode === 'resume' ? 'solid' : 'outline'}
-                size="sm"
-                leftIcon={<User size={16} />}
+                size={{ base: "xs", md: "sm" }}
+                leftIcon={<User size={14} />}
                 onClick={() => handleModeChange('resume')}
                 bg={mode === 'resume' ? accentColor : 'transparent'}
                 borderColor={accentColor}
@@ -362,14 +364,14 @@ function EchoChatApp() {
                   bg: mode === 'resume' ? accentColor : 'terminal.secondary',
                 }}
                 fontFamily="mono"
-                fontSize="sm"
+                fontSize={{ base: "xs", md: "sm" }}
               >
                 resume
               </Button>
               <Button
                 variant={mode === 'documents' ? 'solid' : 'outline'}
-                size="sm"
-                leftIcon={<FileText size={16} />}
+                size={{ base: "xs", md: "sm" }}
+                leftIcon={<FileText size={14} />}
                 onClick={() => handleModeChange('documents')}
                 bg={mode === 'documents' ? accentColor : 'transparent'}
                 borderColor={accentColor}
@@ -379,7 +381,7 @@ function EchoChatApp() {
                   bg: mode === 'documents' ? accentColor : 'terminal.secondary',
                 }}
                 fontFamily="mono"
-                fontSize="sm"
+                fontSize={{ base: "xs", md: "sm" }}
               >
                 documents
               </Button>
@@ -388,8 +390,8 @@ function EchoChatApp() {
         </Container>
       </Box>
 
-      <Container maxW={{ base: "90%", md: "85%", lg: "85%" }} pt="100px" pb={4}>
-        <Flex direction="column" h="calc(100vh - 120px)" borderRadius="xl" overflow="hidden" boxShadow="0 4px 20px rgba(0,0,0,0.1)">
+      <Container maxW={{ base: "100%", md: "85%", lg: "85%" }} pt={{ base: "70px", md: "100px" }} pb={{ base: 2, md: 4 }} px={{ base: 1, md: 4 }}>
+        <Flex direction="column" h={{ base: "calc(100vh - 80px)", md: "calc(100vh - 120px)" }} borderRadius="xl" overflow="hidden" boxShadow="0 4px 20px rgba(0,0,0,0.1)">
           {/* Main Content Container */}
 
 
@@ -400,20 +402,20 @@ function EchoChatApp() {
               borderBottom="1px solid" 
               borderColor={borderColor}
               borderRadius="lg"
-              p={uploadedFiles.length > 0 ? 3 : 6}
-              mb={4}
+              p={uploadedFiles.length > 0 ? { base: 2, md: 3 } : { base: 3, md: 6 }}
+              mb={{ base: 2, md: 4 }}
             >
               {uploadedFiles.length === 0 ? (
                 // Large upload area when no files are uploaded
-                <VStack spacing={4} align="stretch">
-                                  <Text fontSize="sm" color="terminal.warning" fontFamily="mono" fontWeight="bold">
+                                  <VStack spacing={{ base: 2, md: 4 }} align="stretch">
+                  <Text fontSize={{ base: "xs", md: "sm" }} color="terminal.warning" fontFamily="mono" fontWeight="bold">
                   {'>'} document_upload --mode interactive
                 </Text>
                   <Box
                     border="2px dashed"
                     borderColor={isDragOver ? 'terminal.warning' : 'terminal.muted'}
                     borderRadius="xl"
-                    p={6}
+                    p={{ base: 3, md: 6 }}
                     textAlign="center"
                     cursor="pointer"
                     bg={isDragOver ? 'linear-gradient(135deg, terminal.warning, terminal.accent)' : 'linear-gradient(135deg, terminal.cardBg, terminal.secondary)'}
@@ -423,19 +425,19 @@ function EchoChatApp() {
                       borderColor: 'terminal.warning',
                       bg: 'linear-gradient(135deg, terminal.warning, terminal.accent)',
                       color: 'terminal.bg',
-                      transform: 'scale(1.02)',
+                      transform: { base: 'none', md: 'scale(1.02)' },
                     }}
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
                     onDragLeave={handleDragLeave}
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <VStack spacing={3}>
-                      <Upload size={24} color="currentColor" />
-                      <Text fontSize="sm" fontFamily="mono" color={textColor}>
+                    <VStack spacing={{ base: 2, md: 3 }}>
+                      <Upload size={20} color="currentColor" />
+                      <Text fontSize={{ base: "xs", md: "sm" }} fontFamily="mono" color={textColor}>
                         upload --files
                       </Text>
-                      <Text fontSize="xs" color={borderColor} fontFamily="mono">
+                      <Text fontSize="xs" color={borderColor} fontFamily="mono" display={{ base: "none", md: "block" }}>
                         [.pdf .txt .docx] supported
                       </Text>
                     </VStack>
@@ -550,7 +552,7 @@ function EchoChatApp() {
           <Box 
             flex="1" 
             overflow="auto" 
-            p={6} 
+            p={{ base: 3, md: 6 }} 
             bg="terminal.bg"
             position="relative"
             _before={{
@@ -571,20 +573,20 @@ function EchoChatApp() {
               zIndex: -1,
             }}
           >
-            <VStack spacing={4} align="stretch">
+            <VStack spacing={{ base: 3, md: 4 }} align="stretch">
               {messages.length === 0 && (
                 <Box 
                   bg="linear-gradient(135deg, terminal.cardBg, terminal.secondary)"
                   border="2px solid" 
                   borderColor="terminal.accent"
                   borderRadius="xl"
-                  p={4}
+                  p={{ base: 3, md: 4 }}
                   boxShadow="0 4px 15px rgba(122, 162, 247, 0.1)"
                 >
-                  <Text fontSize="sm" color={accentColor} fontFamily="mono" fontWeight="bold" lineHeight="1.2" mb={2}>
+                  <Text fontSize={{ base: "xs", md: "sm" }} color={accentColor} fontFamily="mono" fontWeight="bold" lineHeight="1.2" mb={2}>
                     echo@chat:~$ status
                   </Text>
-                  <Text fontSize="sm" color={textColor} fontFamily="mono">
+                  <Text fontSize={{ base: "xs", md: "sm" }} color={textColor} fontFamily="mono">
                     {getWelcomeMessage()}
                   </Text>
                 </Box>
@@ -592,19 +594,20 @@ function EchoChatApp() {
               
                             {messages.map((message) => (
                 <Box key={message.id} w="100%">
-                  <HStack align="start" spacing={4} mb={3}>
+                  <HStack align="start" spacing={{ base: 2, md: 4 }} mb={{ base: 2, md: 3 }}>
                     <Text 
-                      fontSize="sm" 
+                      fontSize={{ base: "xs", md: "sm" }} 
                       fontFamily="mono" 
                       color={message.type === 'user' ? 'terminal.success' : 'terminal.accent'}
                       fontWeight="bold"
                       minW="fit-content"
                       lineHeight="1.2"
                       pt={1}
+                      display={{ base: "none", md: "block" }}
                     >
                       {message.type === 'user' ? 'user@terminal:~$' : 'echo@assistant:~$'}
                     </Text>
-                                        <Box 
+                    <Box 
                       flex="1" 
                       bg={message.type === 'user' 
                         ? 'linear-gradient(135deg, terminal.success, terminal.secondary)' 
@@ -613,13 +616,23 @@ function EchoChatApp() {
                       border="1px solid"
                       borderColor={message.type === 'user' ? 'terminal.success' : 'terminal.accent'}
                       borderRadius="xl"
-                      p={3}
+                      p={{ base: 2, md: 3 }}
                       boxShadow={message.type === 'user' 
                         ? '0 2px 10px rgba(158, 206, 106, 0.1)' 
                         : '0 2px 10px rgba(122, 162, 247, 0.1)'
                       }
                     >
-                       <Box className="markdown-content">
+                      <Text 
+                        fontSize="xs"
+                        fontFamily="mono" 
+                        color={message.type === 'user' ? 'terminal.success' : 'terminal.accent'}
+                        fontWeight="bold"
+                        mb={2}
+                        display={{ base: "block", md: "none" }}
+                      >
+                        {message.type === 'user' ? 'user@terminal:~$' : 'echo@assistant:~$'}
+                      </Text>
+                      <Box className="markdown-content">
                          {message.content === 'processing...' ? (
                            <HStack spacing={2}>
                              <Text fontSize="sm" fontFamily="mono" color={textColor}>
@@ -681,13 +694,13 @@ function EchoChatApp() {
             borderTop="2px solid" 
             borderColor="terminal.accent"
             borderRadius="lg"
-            p={4}
+            p={{ base: 2, md: 4 }}
             boxShadow="0 -2px 10px rgba(122, 162, 247, 0.1)"
           >
             <form onSubmit={handleSubmit}>
-              <HStack spacing={4} align="center">
+              <HStack spacing={{ base: 2, md: 4 }} align="center">
                 <Text 
-                  fontSize="sm" 
+                  fontSize={{ base: "xs", md: "sm" }}
                   fontFamily="mono" 
                   bgGradient="linear(to-r, terminal.success, terminal.accent)"
                   bgClip="text"
@@ -695,6 +708,7 @@ function EchoChatApp() {
                   minW="fit-content"
                   lineHeight="1"
                   flexShrink={0}
+                  display={{ base: "none", md: "block" }}
                 >
                   user@terminal:~$
                 </Text>
@@ -743,6 +757,7 @@ function EchoChatApp() {
                   isDisabled={!canChat || !inputValue.trim() || isLoading}
                   flexShrink={0}
                   alignSelf="center"
+                  display={{ base: "none", md: "flex" }}
                   sx={{
                     '& svg': {
                       color: 'terminal.accent !important',
