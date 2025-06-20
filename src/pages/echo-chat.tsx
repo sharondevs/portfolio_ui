@@ -391,7 +391,7 @@ function EchoChatApp() {
       </Box>
 
       <Container maxW={{ base: "100%", md: "85%", lg: "85%" }} pt={{ base: "70px", md: "100px" }} pb={{ base: 2, md: 4 }} px={{ base: 1, md: 4 }}>
-        <Flex direction="column" minH={{ base: "calc(100vh - 80px)", md: "calc(100vh - 120px)" }} maxH={{ base: "calc(100vh - 80px)", md: "calc(100vh - 120px)" }} borderRadius="xl" overflow="hidden" boxShadow="0 4px 20px rgba(0,0,0,0.1)">
+        <Flex direction="column" h={{ base: "calc(100vh - 80px)", md: "calc(100vh - 120px)" }} borderRadius="xl" overflow="hidden" boxShadow="0 4px 20px rgba(0,0,0,0.1)">
           {/* Main Content Container */}
 
 
@@ -556,6 +556,8 @@ function EchoChatApp() {
             p={{ base: 3, md: 6 }} 
             bg="terminal.bg"
             position="relative"
+            display="flex"
+            flexDirection="column"
             _before={{
               content: '""',
               position: 'absolute',
@@ -574,26 +576,27 @@ function EchoChatApp() {
               zIndex: -1,
             }}
           >
-            <VStack spacing={{ base: 3, md: 4 }} align="stretch">
-              {messages.length === 0 && (
-                <Box 
-                  bg="linear-gradient(135deg, terminal.cardBg, terminal.secondary)"
-                  border="2px solid" 
-                  borderColor="terminal.accent"
-                  borderRadius="xl"
-                  p={{ base: 3, md: 4 }}
-                  boxShadow="0 4px 15px rgba(122, 162, 247, 0.1)"
-                >
-                  <Text fontSize={{ base: "xs", md: "sm" }} color={accentColor} fontFamily="mono" fontWeight="bold" lineHeight="1.2" mb={2}>
-                    echo@chat:~$ status
-                  </Text>
-                  <Text fontSize={{ base: "xs", md: "sm" }} color={textColor} fontFamily="mono">
-                    {getWelcomeMessage()}
-                  </Text>
-                </Box>
-              )}
-              
-                            {messages.map((message) => (
+            <Box flex={messages.length === 0 ? "0 0 auto" : "1"} overflowY="auto">
+              <VStack spacing={{ base: 3, md: 4 }} align="stretch">
+                {messages.length === 0 && (
+                  <Box 
+                    bg="linear-gradient(135deg, terminal.cardBg, terminal.secondary)"
+                    border="2px solid" 
+                    borderColor="terminal.accent"
+                    borderRadius="xl"
+                    p={{ base: 3, md: 4 }}
+                    boxShadow="0 4px 15px rgba(122, 162, 247, 0.1)"
+                  >
+                    <Text fontSize={{ base: "xs", md: "sm" }} color={accentColor} fontFamily="mono" fontWeight="bold" lineHeight="1.2" mb={2}>
+                      echo@chat:~$ status
+                    </Text>
+                    <Text fontSize={{ base: "xs", md: "sm" }} color={textColor} fontFamily="mono">
+                      {getWelcomeMessage()}
+                    </Text>
+                  </Box>
+                )}
+                
+                              {messages.map((message) => (
                 <Box key={message.id} w="100%">
                   <HStack align="start" spacing={{ base: 2, md: 4 }} mb={{ base: 2, md: 3 }}>
                     <Text 
@@ -685,8 +688,9 @@ function EchoChatApp() {
               
 
               
-              <div ref={messagesEndRef} />
-            </VStack>
+                <div ref={messagesEndRef} />
+              </VStack>
+            </Box>
           </Box>
 
           {/* Input Container */}
