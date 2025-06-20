@@ -391,7 +391,7 @@ function EchoChatApp() {
       </Box>
 
       <Container maxW={{ base: "100%", md: "85%", lg: "85%" }} pt={{ base: "70px", md: "100px" }} pb={{ base: 2, md: 4 }} px={{ base: 1, md: 4 }}>
-        <Flex direction="column" h={{ base: "calc(100vh - 80px)", md: "calc(100vh - 120px)" }} borderRadius="xl" overflow="hidden" boxShadow="0 4px 20px rgba(0,0,0,0.1)">
+        <Flex direction="column" minH={{ base: "calc(100vh - 80px)", md: "calc(100vh - 120px)" }} maxH={{ base: "calc(100vh - 80px)", md: "calc(100vh - 120px)" }} borderRadius="xl" overflow="hidden" boxShadow="0 4px 20px rgba(0,0,0,0.1)">
           {/* Main Content Container */}
 
 
@@ -551,7 +551,8 @@ function EchoChatApp() {
           {/* Messages Container */}
           <Box 
             flex="1" 
-            overflow="auto" 
+            overflowY="auto"
+            overflowX="hidden"
             p={{ base: 3, md: 6 }} 
             bg="terminal.bg"
             position="relative"
@@ -696,6 +697,7 @@ function EchoChatApp() {
             borderRadius="lg"
             p={{ base: 2, md: 4 }}
             boxShadow="0 -2px 10px rgba(122, 162, 247, 0.1)"
+            flexShrink={0}
           >
             <form onSubmit={handleSubmit}>
               <HStack spacing={{ base: 2, md: 4 }} align="center">
