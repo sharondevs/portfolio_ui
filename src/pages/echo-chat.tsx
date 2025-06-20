@@ -328,7 +328,7 @@ function EchoChatApp() {
                 size="sm"
                 borderRadius="lg"
                 border="1px solid"
-                                  borderColor="terminal.success"
+                borderColor={accentColor}
                 _hover={{ 
                   bg: 'terminal.success', 
                   color: 'terminal.bg',
@@ -581,7 +581,7 @@ function EchoChatApp() {
                   p={4}
                   boxShadow="0 4px 15px rgba(122, 162, 247, 0.1)"
                 >
-                  <Text fontSize="sm" color="terminal.warning" fontFamily="mono" fontWeight="bold" lineHeight="1.2" mb={2}>
+                  <Text fontSize="sm" color={accentColor} fontFamily="mono" fontWeight="bold" lineHeight="1.2" mb={2}>
                     echo@chat:~$ status
                   </Text>
                   <Text fontSize="sm" color={textColor} fontFamily="mono">
@@ -596,7 +596,7 @@ function EchoChatApp() {
                     <Text 
                       fontSize="sm" 
                       fontFamily="mono" 
-                      color={message.type === 'user' ? 'terminal.success' : 'terminal.warning'}
+                      color={message.type === 'user' ? 'terminal.success' : 'terminal.accent'}
                       fontWeight="bold"
                       minW="fit-content"
                       lineHeight="1.2"
@@ -705,7 +705,7 @@ function EchoChatApp() {
                   onKeyPress={handleKeyPress}
                   placeholder={
                     canChat 
-                      ? "enter command..." 
+                      ? "enter message..." 
                       : "upload documents first..."
                   }
                   disabled={!canChat || isLoading}
@@ -722,8 +722,8 @@ function EchoChatApp() {
                   flex="1"
                   _placeholder={{ color: 'terminal.muted' }}
                   _focus={{
-                    borderColor: 'terminal.warning',
-                    boxShadow: '0 0 0 2px rgba(224, 175, 104, 0.3)',
+                    borderColor: 'terminal.accent',
+                    boxShadow: '0 0 0 2px rgba(122, 162, 247, 0.3)',
                   }}
                   _disabled={{
                     opacity: 0.6,
@@ -732,22 +732,34 @@ function EchoChatApp() {
                 />
                 <IconButton
                   type="submit"
-                  icon={<Send size={16} />}
+                  icon={isLoading ? <Spinner size="sm" thickness="3px" color="terminal.accent" /> : <Send size={20} />}
                   aria-label="Execute command"
-                  size="sm"
+                  size="md"
                   bg="linear-gradient(135deg, terminal.warning, terminal.accent)"
-                  color="terminal.bg"
+                  color="terminal.accent"
                   border="2px solid"
-                  borderColor="terminal.warning"
+                  borderColor="terminal.accent"
                   borderRadius="lg"
                   isDisabled={!canChat || !inputValue.trim() || isLoading}
-                  isLoading={isLoading}
                   flexShrink={0}
                   alignSelf="center"
+                  sx={{
+                    '& svg': {
+                      color: 'terminal.accent !important',
+                      fill: 'terminal.accent !important',
+                      stroke: 'terminal.accent !important',
+                      strokeWidth: '2px !important'
+                    }
+                  }}
                   _hover={{
                     bg: 'linear-gradient(135deg, terminal.accent, terminal.success)',
                     borderColor: 'terminal.accent',
                     transform: 'translateY(-1px) scale(1.05)',
+                    '& svg': {
+                      color: 'terminal.accent !important',
+                      fill: 'terminal.accent !important',
+                      stroke: 'terminal.accent !important'
+                    }
                   }}
                   _disabled={{
                     opacity: 0.6,
