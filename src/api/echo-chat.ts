@@ -30,7 +30,7 @@ export interface StreamChunk {
 }
 
 // Use environment variable with fallback
-const API_BASE_URL = import.meta.env.VITE_ECHO_CHAT_API
+const API_BASE_URL = import.meta.env.VITE_ECHO_CHAT_API || 'http://localhost:8000'
 
 
 

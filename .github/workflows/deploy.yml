@@ -28,6 +28,8 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+        env:
+          VITE_ECHO_CHAT_API: ${{ secrets.VITE_ECHO_CHAT_API }}
       - name: Create CNAME file
         run: echo "hello-sharon.dev" > ./dist/CNAME
       - name: Deploy to gh-pages
