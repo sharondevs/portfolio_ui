@@ -67,9 +67,7 @@ function EchoChatApp() {
   }
 
   useEffect(() => {
-    if (messages.length > 0) {
-      scrollToBottom()
-    }
+    scrollToBottom()
   }, [messages])
 
   const handleModeChange = async (newMode: QueryMode) => {
