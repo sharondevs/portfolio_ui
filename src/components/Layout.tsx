@@ -1,7 +1,9 @@
-import { Box, Container, Flex, Link, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Container, Flex, Link, Text, useColorModeValue, IconButton, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, VStack } from '@chakra-ui/react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState, useRef, useCallback } from 'react';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import Echo from './Echo';
 
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
@@ -29,6 +31,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigationTimer = useRef<number | null>(null);
   const prevLocationRef = useRef(location.pathname);
   const [activeSection, setActiveSection] = useState(location.pathname);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleScroll = useCallback(throttle(() => {
     const currentScrollY = window.scrollY;
@@ -59,7 +62,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     const sections = ['home', 'experience', 'education', 'projects', 'resume', 'contact'];
     sections.forEach((sectionId) => {
       const element = document.getElementById(sectionId);
-      if (element) observer.observe(element);
+      if (element) {
+        observer.observe(element);
+      }
     });
 
     return () => observer.disconnect();
@@ -110,10 +115,24 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  const handleNavClick = useCallback(() => {
+  const handleNavClick = useCallback((path: string) => {
     setIsNavigating(true);
     setShouldShowHeader(true);
-  }, []);
+    setActiveSection(path);  // Set active section immediately
+    const sectionId = path === '/' ? 'home' : path.slice(1);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      const isScrollingUp = rect.top < 0;
+      const elementPosition = window.pageYOffset + rect.top;
+      
+      window.scrollTo({
+        top: isScrollingUp ? elementPosition : elementPosition - HEADER_HEIGHT - 20,
+        behavior: 'smooth'
+      });
+    }
+    onClose();
+  }, [onClose, HEADER_HEIGHT]);
 
   const navItems = [
     { path: '/', label: '~/home' },
@@ -146,9 +165,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       >
         <Container maxW={{ base: "90%", md: "85%", lg: "85%" }} h="100%" py={4}>
           <Flex
-            flexDir={{ base: 'column', md: 'row' }}
-            alignItems={{ base: 'flex-start', md: 'center' }}
-            gap={4}
+            flexDir="row"
+            alignItems="center"
+            justify="space-between"
             borderBottom="1px solid"
             borderColor={borderColor}
             pb={4}
@@ -158,11 +177,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               fontSize="lg"
               fontFamily="mono"
               color="terminal.accent"
-              mr={8}
             >
               sharon@portfolio:~$
             </Text>
-            <Flex gap={6} flexWrap="wrap" ml="auto">
+
+            {/* Desktop Navigation */}
+            <Flex display={{ base: 'none', md: 'flex' }} gap={6}>
               {navItems.map((item) => (
                 <Link
                   key={item.path}
@@ -171,7 +191,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   color={activeSection === item.path ? 'terminal.success' : 'terminal.text'}
                   position="relative"
                   _hover={{ color: 'terminal.accent' }}
-                  onClick={handleNavClick}
+                  onClick={() => handleNavClick(item.path)}
                 >
                   {activeSection === item.path && (
                     <MotionBox
@@ -188,15 +208,58 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </Link>
               ))}
             </Flex>
+
+            {/* Mobile Hamburger */}
+            <IconButton
+              display={{ base: 'flex', md: 'none' }}
+              aria-label="Open menu"
+              icon={<HamburgerIcon />}
+              onClick={onOpen}
+              variant="ghost"
+              color="terminal.accent"
+              _hover={{ bg: 'terminal.secondary' }}
+            />
           </Flex>
         </Container>
       </MotionFlex>
 
-      <Container maxW={{ base: "90%", md: "85%", lg: "85%" }} pt={`${HEADER_HEIGHT - 35}px`}>
+      {/* Mobile Drawer */}
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent bg="terminal.bg">
+          <DrawerCloseButton color="terminal.accent" marginTop="8px"/>
+          <DrawerHeader borderBottomWidth="1px" borderColor={borderColor}>
+            <Text color="terminal.accent" fontFamily="mono">Navigation</Text>
+          </DrawerHeader>
+          <DrawerBody>
+            <VStack spacing={4} align="stretch" mt={4}>
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  as={RouterLink}
+                  to={item.path}
+                  color={activeSection === item.path ? 'terminal.success' : 'terminal.text'}
+                  p={2}
+                  borderRadius="md"
+                  _hover={{ bg: 'terminal.secondary', color: 'terminal.accent' }}
+                  onClick={() => handleNavClick(item.path)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+
+      <Container maxW={{ base: "100%", md: "85%", lg: "85%" }} pt={`${HEADER_HEIGHT - 35}px`} px={{ base: 0, md: 4 }}>
         <Box as="main" pb={16}>
           {children}
         </Box>
       </Container>
+
+      {/* Add Echo component */}
+      <Echo />
     </Box>
   );
 };
