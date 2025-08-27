@@ -4,10 +4,11 @@ import { FaBriefcase, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import ustGlobalLogo from '../assets/ust_global.jpg';
 import moonraftLogo from '../assets/moonraft.webp';
 import microsoftLogo from '../assets/microsoft.png';
+import oxmaintLogo from '../assets/oxmaint.jpg';
 
 const MotionBox = motion(Box);
 
-type CompanyName = 'UST Global' | 'Moonraft Innovation Labs (acquired by UST Global)' | 'Microsoft';
+type CompanyName = 'Oxmaint AI' | 'UST Global' | 'Moonraft Innovation Labs (acquired by UST Global)' | 'Microsoft';
 
 const TechnologyBadge = ({ tech }: { tech: string }) => {
   return (
@@ -141,6 +142,20 @@ const ExperienceItem = ({
 
 const Experience = () => {
   const experiences: ExperienceItemProps[] = [
+    {
+      role: 'Software Engineering Intern',
+      company: 'Oxmaint AI',
+      period: 'Current',
+      location: 'Sunnyvale, CA',
+      description: [
+         "Worked on building OXmaint's new AI-enabled CMMD (Computerized Maintenance Management System) platform on NextJS and Golang backend, enabling migration from legacy application",
+         "AI-portal improved UX and simplified workflows for enterprise admins, pushing engagement by 40%",
+         "Implemented locale-aware routing with i18n, middleware config for auto-locale detection and enabled per-locale SSG(server-side)",
+         "Integrated an n8n workflow in NextJS portal that upserts Salesforce Leads on user-signup, driving lead-to-opportunity conversion by 30%"
+      ],
+      logoUrl: oxmaintLogo,
+      technologies: ['NextJS', 'TypeScript', 'Golang', 'Azure', 'n8n', 'Flutter']
+    },
     {
       role: 'Developer 1',
       company: 'UST Global',
