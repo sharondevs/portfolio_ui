@@ -143,18 +143,21 @@ const ExperienceItem = ({
 const Experience = () => {
   const experiences: ExperienceItemProps[] = [
     {
-      role: 'Software Engineering Intern',
+      role: 'Software Engineer (Co-op + FT)',
       company: 'Oxmaint AI',
       period: 'Current',
       location: 'Sunnyvale, CA',
       description: [
-         "Worked on building OXmaint's new AI-enabled CMMD (Computerized Maintenance Management System) platform on NextJS and Golang backend, enabling migration from legacy application",
-         "AI-portal improved UX and simplified workflows for enterprise admins, pushing engagement by 40%",
-         "Implemented locale-aware routing with i18n, middleware config for auto-locale detection and enabled per-locale SSG(server-side)",
-         "Integrated an n8n workflow in NextJS portal that upserts Salesforce Leads on user-signup, driving lead-to-opportunity conversion by 30%"
+        "Built OXmaint's next-gen AI-enabled CMMS portal (Next.js + Golang), migrating from legacy workflows with 40% increased engagement through simplified admin UX",
+        "Shipped i18n locale routing with middleware-driven auto-detection and per-locale SSG, improving multilingual onboarding",
+        "Hardened Next.js frontend security with CSP headers, cache-control, and security patches to mitigate cache poisoning and client-side attacks",
+        "Led OxyAI chatbot agentic automation using n8n workflows with org-context grounding; integrated Salesforce lead capture and sandbox provisioning flows, improving lead-to-opportunity conversion by 30%",
+        "Engineered end-to-end IoT ingestion pipeline integrating ChirpStack sensor networks via MQTT (Eclipse Paho) and HTTPS webhooks with Golang backend; reduced sensor setup time by 60%",
+        "Owned OXmaint Flutter app distribution with modular MVVM, OAuth2, Firebase notifications, on-device TTS, wake-word interaction, and Meta wearable integration; improved field-user turnaround by 30%",
+        "Prototyped organization-scale digital twin for manufacturing using NVIDIA Omniverse + OpenUSD with Unitree Go2 virtual navigation and WebRTC-based robot streaming from Next.js"
       ],
       logoUrl: oxmaintLogo,
-      technologies: ['NextJS', 'TypeScript', 'Golang', 'Azure', 'n8n', 'Flutter']
+      technologies: ['Next.js', 'TypeScript', 'Golang', 'gorm', 'n8n', 'Flutter', 'MQTT', 'Eclipse Paho', 'ChirpStack', 'NVIDIA Omniverse', 'OpenUSD', 'WebRTC', 'OAuth2', 'Firebase', 'Salesforce', 'CSP', 'MVVM']
     },
     {
       role: 'Developer 1',

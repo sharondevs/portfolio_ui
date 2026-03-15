@@ -193,14 +193,14 @@ const Education = () => {
     {
       university: 'University at Buffalo - SUNY',
       degree: 'Masters in Computer Science (Specialization in AI/ML)',
-      period: 'August 2024 - present',
+      period: 'August 2024 - December 2025',
       location: 'New York, United States',
-      gpa: '3.75/4',
+      gpa: '3.74/4',
       coursework: [
         'Machine Learning',
         'Deep Learning',
         'Data Modeling and Query Language',
-        'Algorithms'
+        'Computer Vision and Image Processing'
       ],
       logoUrl: universityBuffaloLogo,
       isLeft: true
