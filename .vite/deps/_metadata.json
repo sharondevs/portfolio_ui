@@ -1,0 +1,73 @@
+{
+  "hash": "3742c6cb",
+  "configHash": "906916a3",
+  "lockfileHash": "d91d0bb9",
+  "browserHash": "7fabcf7a",
+  "optimized": {
+    "@emotion/is-prop-valid": {
+      "src": "../../node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js",
+      "file": "@emotion_is-prop-valid.js",
+      "fileHash": "cc83f41c",
+      "needsInterop": false
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "bced9769",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "e695f415",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "c194296e",
+      "needsInterop": true
+    },
+    "@chakra-ui/react": {
+      "src": "../../node_modules/@chakra-ui/react/dist/esm/index.mjs",
+      "file": "@chakra-ui_react.js",
+      "fileHash": "a73ec22f",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "f60f8583",
+      "needsInterop": false
+    },
+    "framer-motion": {
+      "src": "../../node_modules/framer-motion/dist/es/index.mjs",
+      "file": "framer-motion.js",
+      "fileHash": "bde4a0ef",
+      "needsInterop": false
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "be3c8824",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-E5ODL3YF": {
+      "file": "chunk-E5ODL3YF.js"
+    },
+    "chunk-6AZQKGFB": {
+      "file": "chunk-6AZQKGFB.js"
+    },
+    "chunk-65KY755N": {
+      "file": "chunk-65KY755N.js"
+    },
+    "chunk-FXQPUKGY": {
+      "file": "chunk-FXQPUKGY.js"
+    },
+    "chunk-V4OQ3NZ2": {
+      "file": "chunk-V4OQ3NZ2.js"
+    }
+  }
+}
