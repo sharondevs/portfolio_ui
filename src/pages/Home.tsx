@@ -1,6 +1,6 @@
 import { Box, Text, VStack, Heading, List, ListItem, Image } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import profileImage from '../assets/profile.jpg';
+import profileImage from '../assets/profile.png';
 
 const MotionText = motion(Text);
 const MotionBox = motion(Box);
@@ -49,7 +49,7 @@ const Home = () => {
             Software Engineer
           </Heading>
           <Text color="terminal.text" fontSize="lg">
-            3+ years of expertise building scalable modern web-apps.
+            Building scalable, AI-native systems — agentic backends, RAG, and full-stack products.
           </Text>
         </Box>
         
@@ -77,7 +77,7 @@ const Home = () => {
             borderColor="terminal.accent"
           >
             <Text color="terminal.muted" fontSize="sm" fontFamily="mono">
-              $ display profile.jpg
+              $ display profile.png
             </Text>
           </Box>
           <Image src={profileImage} alt="Profile Photo" objectFit="cover" width="full" height="full" mt="40px" />
@@ -94,9 +94,10 @@ const Home = () => {
           $ cat about.txt
         </Text>
         <Text color="terminal.text" lineHeight="tall">
-          I'm a passionate software engineer with a focus on building scalable and maintainable applications.
-          My experience spans working on full-stack web-apps, from enabling rich UXs to designing
-          robust backend systems. I love indulging in new tech and solving complex problems by building impactful tools.
+          I'm a software engineer focused on building scalable, production-grade systems — increasingly at the
+          intersection of AI and infrastructure. My experience spans full-stack web apps and Golang microservices to
+          agentic LLM systems (MCP, RAG, multi-model inference) and observability. I love diving into new tech and
+          solving complex problems by shipping impactful tools.
         </Text>
       </MotionBox>
       <MotionBox
@@ -110,22 +111,22 @@ const Home = () => {
         </Text>
         <List spacing={2}>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> Frontend Development: ReactJS, JS, CSS
+            <Text as="span" color="terminal.success">→</Text> Languages: TypeScript, Go, Python, Java, Dart, SQL
           </ListItem>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> Backend Development: Flask, ElasticSearch, Spring Boot(JavaEE), Spring Sec, REST API
+            <Text as="span" color="terminal.success">→</Text> AI / Agentic: MCP, LLM inference (vLLM, OpenAI-compatible APIs), RAG, ReAct agents, LangChain, LlamaIndex
           </ListItem>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> Mobile: FlutterFlow, Flutter
+            <Text as="span" color="terminal.success">→</Text> Frontend: React, Next.js, TypeScript
           </ListItem>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> Database: PostgreSQL, MongoDB, PineconeDB, Redis
+            <Text as="span" color="terminal.success">→</Text> Backend: Golang, FastAPI, Spring Boot, REST, Kafka, n8n
           </ListItem>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> DevOps: Docker, AWS, CI/CD
+            <Text as="span" color="terminal.success">→</Text> Data: PostgreSQL, MongoDB, Pinecone, Elasticsearch, Redis
           </ListItem>
           <ListItem color="terminal.text">
-            <Text as="span" color="terminal.success">→</Text> ML&Ops: LangChain, PyTorch
+            <Text as="span" color="terminal.success">→</Text> Cloud / DevOps: Azure, GCP, Docker, GitHub Actions, Prometheus, Grafana
           </ListItem>
         </List>
       </MotionBox>

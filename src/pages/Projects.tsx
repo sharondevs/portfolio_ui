@@ -95,12 +95,12 @@ const ProjectCard = ({ title, description, technologies, link, status = 'complet
 const Projects = () => {
   const projects = [
     {
-      title: 'ECHO',
-      description: 'Coming soon!',
-      technologies: ['Agentic', 'Model Context Protocol', 'Chain-of-Thought', '*****'],
-      status: 'in-progress' as const,
-      link: 'https://github.com/yourusername/echo-chat',
-      demoLink: '',
+      title: 'ECHO-SRE — Agentic SRE Copilot',
+      description: 'An agentic Site Reliability Engineering copilot that auto-investigates production incidents end-to-end — alerts, metrics, service topology, logs, and runbooks — over the Model Context Protocol. A ReAct agent drives a FastMCP toolset (reusable by any MCP client) and a provider-agnostic inference gateway with automatic multi-model failover; the live investigation and root-cause analysis stream over FastAPI Server-Sent Events. Try it in the "SRE mode" of ECHO chat.',
+      technologies: ['Model Context Protocol', 'Agentic / ReAct', 'Inference Gateway', 'FastAPI (SSE)', 'Prometheus', 'Azure Container Apps'],
+      status: 'completed' as const,
+      link: 'https://github.com/sharondevs/echo-SRE',
+      demoLink: 'https://hello-sharon.dev/#/echo-chat',
     },
     {
       title: 'ECHO-chat',

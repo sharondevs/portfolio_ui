@@ -143,21 +143,19 @@ const ExperienceItem = ({
 const Experience = () => {
   const experiences: ExperienceItemProps[] = [
     {
-      role: 'Software Engineer (Co-op + FT)',
+      role: 'Lead Software Engineer',
       company: 'Oxmaint AI',
-      period: 'Current',
+      period: 'July 2025 - Present',
       location: 'Sunnyvale, CA',
       description: [
-        "Built OXmaint's next-gen AI-enabled CMMS portal (Next.js + Golang), migrating from legacy workflows with 40% increased engagement through simplified admin UX",
-        "Shipped i18n locale routing with middleware-driven auto-detection and per-locale SSG, improving multilingual onboarding",
-        "Hardened Next.js frontend security with CSP headers, cache-control, and security patches to mitigate cache poisoning and client-side attacks",
-        "Led OxyAI chatbot agentic automation using n8n workflows with org-context grounding; integrated Salesforce lead capture and sandbox provisioning flows, improving lead-to-opportunity conversion by 30%",
-        "Engineered end-to-end IoT ingestion pipeline integrating ChirpStack sensor networks via MQTT (Eclipse Paho) and HTTPS webhooks with Golang backend; reduced sensor setup time by 60%",
-        "Owned OXmaint Flutter app distribution with modular MVVM, OAuth2, Firebase notifications, on-device TTS, wake-word interaction, and Meta wearable integration; improved field-user turnaround by 30%",
-        "Prototyped organization-scale digital twin for manufacturing using NVIDIA Omniverse + OpenUSD with Unitree Go2 virtual navigation and WebRTC-based robot streaming from Next.js"
+        "Own service architecture for OXmaint's AI-enabled CMMS — Next.js/TypeScript frontend, Golang microservices, multi-tenant auth, and Redis caching; migrated 12+ legacy workflows (+40% daily usage)",
+        "Shipped 3 OxyAI agentic workflows on n8n — org-scoped context retrieval, tool-calling over internal APIs, LLM routing with automatic fallback, and token-budgeted session state",
+        "Hardened the frontend (nonce-based CSP, CSRF rotation) and built GitHub Actions CI/CD with Docker staging and Prometheus + Grafana alerting",
+        "Engineered the end-to-end IoT ingestion pipeline (ChirpStack, MQTT via Eclipse Paho Go, auto device discovery); cut sensor setup time by 60%",
+        "Owned the OXmaint Flutter app (MVVM, OAuth2, on-device TTS, wake-word, Meta wearable) for hands-free workflows; +30% field-user turnaround"
       ],
       logoUrl: oxmaintLogo,
-      technologies: ['Next.js', 'TypeScript', 'Golang', 'gorm', 'n8n', 'Flutter', 'MQTT', 'Eclipse Paho', 'ChirpStack', 'NVIDIA Omniverse', 'OpenUSD', 'WebRTC', 'OAuth2', 'Firebase', 'Salesforce', 'CSP', 'MVVM']
+      technologies: ['Next.js', 'TypeScript', 'Golang', 'n8n', 'LLM Routing', 'MQTT', 'ChirpStack', 'Flutter', 'Redis', 'Prometheus', 'GitHub Actions']
     },
     {
       role: 'Developer 1',
@@ -165,9 +163,8 @@ const Experience = () => {
       period: 'Jan 2024 - July 2024',
       location: 'Bangalore, India',
       description: [
-        'Worked for a UK-based mortgage corporation on their frontend cross-platform mobile stack, carrying the project from its MVP phase to first production release in record time',
-        'Created app launch animations and complex loader widgets for file uploads',
-        'Implemented in-app Equifax score dashboards showcasing user spending and analytics for mortgage eligibility'
+        "Took a UK mortgage client's cross-platform Flutter app from MVP to production for 65k+ users (85% crash-free)",
+        "Built app launch animations, complex file-upload loaders, and in-app Equifax score dashboards for mortgage eligibility"
       ],
       logoUrl: ustGlobalLogo,
       technologies: ['Flutter', 'FlutterFlow', 'Google Analytics']
@@ -178,24 +175,20 @@ const Experience = () => {
       period: 'Feb 2023 - Dec 2023',
       location: 'Bangalore, India',
       description: [
-        'Worked as part of the solutions team, building POCs and solutions for internal use cases',
-        'Designed and delivered a POC on an end-to-end conversational semantic search module',
-        'Deployed a backend Spring Boot app capable of running concurrent scraping and indexing jobs, along with an admin UI',
-        'Contributed to DL Vision team for Product Comparison Engine POC, generating image embeddings for vector similarity search',
-        'Led ETL team for collecting and transforming 40k+ product listing data across different ecommerce platforms'
+        "Built a plug-and-play semantic-search module — Spring Boot/FastAPI, Kafka job queues, HuggingFace embeddings in Elasticsearch k-NN — with a React admin portal orchestrating 20+ concurrent scrape/index runs",
+        "Led a 3-member ETL team scraping 50k+ product listings for a Product Comparison Engine, generating text & image embeddings for similarity search"
       ],
       logoUrl: moonraftLogo,
-      technologies: ['Spring Boot', 'Flask', 'ElasticSearch', 'PineconeDB', 'MongoDB', 'LangChain', 'Serverless GPU']
+      technologies: ['Spring Boot', 'FastAPI', 'Elasticsearch', 'Pinecone', 'Kafka', 'MongoDB']
     },
     {
-      role: 'CSA-Engineering',
+      role: 'Cloud Solution Architect',
       company: 'Microsoft',
       period: 'Aug 2021 - Feb 2023',
       location: 'Hyderabad, India',
       description: [
-        'SME for Microsoft Endpoint Manager and Azure AD, part of Microsoft M365 product suite',
-        'Responsible for training, advisory, and building POCs for premier customers on Microsoft PaaS/SaaS platforms',
-        'Led delivery of multi-day onsite/remote engagements for Microsoft customers across the world'
+        "SME for Microsoft Intune, Azure AD, and MECM across 200K+ managed endpoints — onboarding, change management, and endpoint security",
+        "Trained 100+ engineers via multi-day workshops and built solution POCs for premier M365/Azure customers (+15% client-side resolution)"
       ],
       logoUrl: microsoftLogo,
       technologies: ['Microsoft Intune', 'Azure AD', 'MECM', 'Microsoft Defender']
