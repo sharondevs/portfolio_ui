@@ -23,11 +23,11 @@ import {
   CardHeader,
   Divider,
 } from '@chakra-ui/react'
-import { Upload, Send, MessageCircle, FileText, User, Bot, AlertCircle, X, ArrowLeft } from 'lucide-react'
+import { Upload, Send, MessageCircle, FileText, User, Bot, AlertCircle, X, ArrowLeft, Activity } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { uploadDocuments, streamChat, cleanupSession } from '../api/echo-chat'
+import { uploadDocuments, streamChat, cleanupSession, type SREConfig } from '../api/echo-chat'
 
 interface Message {
   id: string
@@ -37,7 +37,7 @@ interface Message {
   timestamp: Date
 }
 
-type QueryMode = 'resume' | 'documents'
+type QueryMode = 'resume' | 'documents' | 'sre'
 
 function EchoChatApp() {
   const navigate = useNavigate()
@@ -49,7 +49,15 @@ function EchoChatApp() {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
   const [error, setError] = useState<string | null>(null)
   const [isDragOver, setIsDragOver] = useState(false)
-  
+
+  // ECHO-SRE sub-mode + config (only used when mode === 'sre')
+  type SreMode = 'demo' | 'custom' | 'live'
+  const [sreMode, setSreMode] = useState<SreMode>('demo')
+  const [sreScenario, setSreScenario] = useState('')
+  const [promUrl, setPromUrl] = useState('')
+  const [lokiUrl, setLokiUrl] = useState('')
+  const [alertUrl, setAlertUrl] = useState('')
+
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -86,6 +94,7 @@ function EchoChatApp() {
       setUploadedFiles([])
       setSessionId(null)
       setError(null)
+      setSreMode('demo')
     }
   }
 
@@ -170,6 +179,34 @@ function EchoChatApp() {
       return
     }
 
+    // Build ECHO-SRE config from the selected sub-mode (validate before sending)
+    let sreConfig: SREConfig | undefined
+    if (mode === 'sre') {
+      if (sreMode === 'custom') {
+        let scenario: unknown
+        try {
+          scenario = JSON.parse(sreScenario)
+        } catch {
+          setError('Custom scenario must be valid JSON.')
+          return
+        }
+        sreConfig = { sre_mode: 'custom', scenario }
+      } else if (sreMode === 'live') {
+        if (!promUrl.trim()) {
+          setError('Enter a Prometheus URL for Live mode.')
+          return
+        }
+        sreConfig = {
+          sre_mode: 'live',
+          prometheus_url: promUrl.trim(),
+          loki_url: lokiUrl.trim() || undefined,
+          alertmanager_url: alertUrl.trim() || undefined,
+        }
+      } else {
+        sreConfig = { sre_mode: 'demo' }
+      }
+    }
+
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
@@ -252,9 +289,10 @@ function EchoChatApp() {
           }
           
           updateTimeout = window.setTimeout(updateMessage, 100) // Update every 100ms max
-        }
+        },
+        sreConfig
       )
-      
+
       // Final update to ensure we get the last chunk
       if (updateTimeout) {
         clearTimeout(updateTimeout)
@@ -289,12 +327,21 @@ function EchoChatApp() {
   const getWelcomeMessage = () => {
     if (mode === 'resume') {
       return "Hi! I am ECHO! I'm ready to answer any questions about Sharon's engineering journey. Ask away!"
+    } else if (mode === 'sre') {
+      return "SRE mode — I'm ECHO-SRE, an agentic on-call copilot. Paste an alert or describe a production symptom (try: `checkout p95 latency is 5x baseline`) and I'll investigate over MCP — alerts, metrics, service topology, logs, runbooks — then return a root-cause verdict with remediation. Powered by a vLLM/OpenAI-compatible inference gateway with automatic fallback."
     } else {
       return "Welcome to Documents mode! Please upload your documents and I'll be ready to answer questions about their content."
     }
   }
 
-  const canChat = mode === 'resume' || (mode === 'documents' && uploadedFiles.length > 0)
+  const sreReady =
+    sreMode === 'demo' ||
+    (sreMode === 'custom' && sreScenario.trim().length > 0) ||
+    (sreMode === 'live' && promUrl.trim().length > 0)
+  const canChat =
+    mode === 'resume' ||
+    (mode === 'sre' && sreReady) ||
+    (mode === 'documents' && uploadedFiles.length > 0)
 
   return (
     <Box minH="100vh" bg={bgColor} color={textColor}>
@@ -384,6 +431,23 @@ function EchoChatApp() {
                 fontSize={{ base: "xs", md: "sm" }}
               >
                 documents
+              </Button>
+              <Button
+                variant={mode === 'sre' ? 'solid' : 'outline'}
+                size={{ base: "xs", md: "sm" }}
+                leftIcon={<Activity size={14} />}
+                onClick={() => handleModeChange('sre')}
+                bg={mode === 'sre' ? accentColor : 'transparent'}
+                borderColor={accentColor}
+                borderRadius="lg"
+                color={mode === 'sre' ? 'terminal.bg' : accentColor}
+                _hover={{
+                  bg: mode === 'sre' ? accentColor : 'terminal.secondary',
+                }}
+                fontFamily="mono"
+                fontSize={{ base: "xs", md: "sm" }}
+              >
+                sre
               </Button>
             </HStack>
           </Flex>
@@ -527,6 +591,96 @@ function EchoChatApp() {
                       </HStack>
                     ))}
                   </Flex>
+                </VStack>
+              )}
+            </Box>
+          )}
+
+          {/* ECHO-SRE config (SRE Mode) */}
+          {mode === 'sre' && (
+            <Box
+              bg={cardBg}
+              borderBottom="1px solid"
+              borderColor={borderColor}
+              borderRadius="lg"
+              p={{ base: 2, md: 3 }}
+              mb={{ base: 2, md: 4 }}
+            >
+              <HStack justify="space-between" mb={2} flexWrap="wrap">
+                <Text fontSize={{ base: "xs", md: "sm" }} color="terminal.warning" fontFamily="mono" fontWeight="bold">
+                  {'>'} sre --source
+                </Text>
+                <HStack spacing={1}>
+                  {(['demo', 'custom', 'live'] as const).map((sm) => (
+                    <Button
+                      key={sm}
+                      size="xs"
+                      variant={sreMode === sm ? 'solid' : 'outline'}
+                      bg={sreMode === sm ? accentColor : 'transparent'}
+                      color={sreMode === sm ? 'terminal.bg' : accentColor}
+                      borderColor={accentColor}
+                      borderRadius="md"
+                      fontFamily="mono"
+                      _hover={{ bg: sreMode === sm ? accentColor : 'terminal.secondary' }}
+                      onClick={() => setSreMode(sm)}
+                    >
+                      {sm}
+                    </Button>
+                  ))}
+                </HStack>
+              </HStack>
+
+              {sreMode === 'demo' && (
+                <Text fontSize="xs" color={borderColor} fontFamily="mono">
+                  synthetic incident loaded (checkout latency → payments → postgres). just hit send.
+                </Text>
+              )}
+
+              {sreMode === 'custom' && (
+                <Textarea
+                  value={sreScenario}
+                  onChange={(e) => setSreScenario(e.target.value)}
+                  placeholder={'paste a scenario JSON:\n{"title":"...","alert":"...","topology":[...],"metrics":[...],"logs":[...],"alerts":[...]}'}
+                  rows={6}
+                  bg="terminal.inputBg"
+                  border="1px solid"
+                  borderColor="terminal.muted"
+                  borderRadius="md"
+                  color={textColor}
+                  fontFamily="mono"
+                  fontSize="xs"
+                  _placeholder={{ color: 'terminal.muted' }}
+                  _focus={{ borderColor: accentColor, boxShadow: 'none' }}
+                />
+              )}
+
+              {sreMode === 'live' && (
+                <VStack spacing={2} align="stretch">
+                  {[
+                    { v: promUrl, set: setPromUrl, ph: 'Prometheus URL (required) — e.g. https://prom.mycorp.io' },
+                    { v: lokiUrl, set: setLokiUrl, ph: 'Loki URL (optional)' },
+                    { v: alertUrl, set: setAlertUrl, ph: 'Alertmanager URL (optional)' },
+                  ].map((f, i) => (
+                    <Input
+                      key={i}
+                      value={f.v}
+                      onChange={(e) => f.set(e.target.value)}
+                      placeholder={f.ph}
+                      size="sm"
+                      bg="terminal.inputBg"
+                      border="1px solid"
+                      borderColor="terminal.muted"
+                      borderRadius="md"
+                      color={textColor}
+                      fontFamily="mono"
+                      fontSize="xs"
+                      _placeholder={{ color: 'terminal.muted' }}
+                      _focus={{ borderColor: accentColor, boxShadow: 'none' }}
+                    />
+                  ))}
+                  <Text fontSize="xs" color="terminal.warning" fontFamily="mono">
+                    ⚠ endpoints must be reachable from the hosted ECHO-SRE service (and CORS-allowed).
+                  </Text>
                 </VStack>
               )}
             </Box>
@@ -724,9 +878,11 @@ function EchoChatApp() {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={
-                    canChat 
-                      ? "enter message..." 
-                      : "upload documents first..."
+                    mode === 'sre'
+                      ? "paste an alert or describe an incident..."
+                      : canChat
+                        ? "enter message..."
+                        : "upload documents first..."
                   }
                   disabled={!canChat || isLoading}
                   resize="none"

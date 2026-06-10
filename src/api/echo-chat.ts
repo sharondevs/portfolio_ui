@@ -32,6 +32,9 @@ export interface StreamChunk {
 // Use environment variable with fallback
 const API_BASE_URL = import.meta.env.VITE_ECHO_CHAT_API || 'http://localhost:8000'
 
+// ECHO-SRE agentic incident-investigation service (same SSE contract, separate host).
+const SRE_API_BASE_URL = import.meta.env.VITE_ECHO_SRE_API || 'http://localhost:8000'
+
 
 
 const api = axios.create({
@@ -62,20 +65,36 @@ export const uploadDocuments = async (
   return response.data
 }
 
+// ECHO-SRE per-request configuration (how the agent sources telemetry).
+export interface SREConfig {
+  sre_mode: 'demo' | 'custom' | 'live'
+  scenario?: unknown            // custom synthetic incident (JSON)
+  prometheus_url?: string       // live backend
+  loki_url?: string
+  alertmanager_url?: string
+}
+
 export const streamChat = async (
   message: string,
-  mode: 'resume' | 'documents',
+  mode: 'resume' | 'documents' | 'sre',
   sessionId: string | null,
-  onChunk: (chunk: StreamChunk) => void
+  onChunk: (chunk: StreamChunk) => void,
+  sreConfig?: SREConfig
 ): Promise<void> => {
-  const requestBody = {
+  const requestBody: Record<string, unknown> = {
     message,
     mode,
     session_id: sessionId,
   }
 
+  // SRE mode streams from the ECHO-SRE agentic service; other modes use ECHO chat.
+  const baseUrl = mode === 'sre' ? SRE_API_BASE_URL : API_BASE_URL
+  if (mode === 'sre' && sreConfig) {
+    Object.assign(requestBody, sreConfig)
+  }
+
   try {
-    const response = await fetch(`${API_BASE_URL}/stream-chat`, {
+    const response = await fetch(`${baseUrl}/stream-chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
