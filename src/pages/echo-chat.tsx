@@ -39,6 +39,35 @@ interface Message {
 
 type QueryMode = 'resume' | 'documents' | 'sre'
 
+// Editable starter scenario for SRE "custom" mode — the exact schema ECHO-SRE expects.
+// Users tweak this and the agent investigates their incident over MCP.
+const SAMPLE_SRE_SCENARIO = `{
+  "title": "Checkout p95 latency 5x",
+  "alert": "ALERT HighLatencyCheckout: checkout p95 latency is 5x baseline for 10m",
+  "topology": [
+    { "name": "gateway", "depends_on": ["checkout"] },
+    { "name": "checkout", "depends_on": ["payments", "orders"] },
+    { "name": "payments", "depends_on": ["postgres"] },
+    { "name": "orders", "depends_on": ["postgres", "redis"] },
+    { "name": "postgres", "depends_on": [] },
+    { "name": "redis", "depends_on": [] }
+  ],
+  "metrics": [
+    { "metric": "http_request_duration_p95", "labels": { "service": "checkout" }, "baseline": 0.2, "anomaly": 1.0, "anomaly_start_min": -12, "unit": "s" },
+    { "metric": "http_requests_error_rate", "labels": { "service": "payments" }, "baseline": 0.01, "anomaly": 0.18, "anomaly_start_min": -12, "unit": "ratio" },
+    { "metric": "pg_connections_active", "labels": { "service": "postgres" }, "baseline": 40, "anomaly": 100, "anomaly_start_min": -13, "unit": "count" }
+  ],
+  "logs": [
+    { "service": "payments", "level": "error", "message": "db timeout acquiring connection from pool (waited 5000ms)" },
+    { "service": "postgres", "level": "warning", "message": "FATAL: too many connections for role payments" }
+  ],
+  "alerts": [
+    { "name": "HighLatencyCheckout", "severity": "critical", "service": "checkout", "summary": "checkout p95 latency 5x baseline for 10m" },
+    { "name": "PaymentErrorsHigh", "severity": "warning", "service": "payments", "summary": "payments error rate > 15%" }
+  ],
+  "root_cause_key": "postgres-connection-exhaustion"
+}`
+
 function EchoChatApp() {
   const navigate = useNavigate()
   const [mode, setMode] = useState<QueryMode>('resume')
@@ -53,7 +82,7 @@ function EchoChatApp() {
   // ECHO-SRE sub-mode + config (only used when mode === 'sre')
   type SreMode = 'demo' | 'custom' | 'live'
   const [sreMode, setSreMode] = useState<SreMode>('demo')
-  const [sreScenario, setSreScenario] = useState('')
+  const [sreScenario, setSreScenario] = useState(SAMPLE_SRE_SCENARIO)
   const [promUrl, setPromUrl] = useState('')
   const [lokiUrl, setLokiUrl] = useState('')
   const [alertUrl, setAlertUrl] = useState('')
@@ -637,21 +666,39 @@ function EchoChatApp() {
               )}
 
               {sreMode === 'custom' && (
-                <Textarea
-                  value={sreScenario}
-                  onChange={(e) => setSreScenario(e.target.value)}
-                  placeholder={'paste a scenario JSON:\n{"title":"...","alert":"...","topology":[...],"metrics":[...],"logs":[...],"alerts":[...]}'}
-                  rows={6}
-                  bg="terminal.inputBg"
-                  border="1px solid"
-                  borderColor="terminal.muted"
-                  borderRadius="md"
-                  color={textColor}
-                  fontFamily="mono"
-                  fontSize="xs"
-                  _placeholder={{ color: 'terminal.muted' }}
-                  _focus={{ borderColor: accentColor, boxShadow: 'none' }}
-                />
+                <VStack spacing={1} align="stretch">
+                  <HStack justify="space-between">
+                    <Text fontSize="xs" color={borderColor} fontFamily="mono">
+                      edit the scenario JSON below (topology, metrics, logs, alerts), then send
+                    </Text>
+                    <Button
+                      size="xs"
+                      variant="ghost"
+                      color={accentColor}
+                      fontFamily="mono"
+                      _hover={{ bg: 'terminal.secondary' }}
+                      onClick={() => setSreScenario(SAMPLE_SRE_SCENARIO)}
+                    >
+                      reset sample
+                    </Button>
+                  </HStack>
+                  <Textarea
+                    value={sreScenario}
+                    onChange={(e) => setSreScenario(e.target.value)}
+                    placeholder={'paste a scenario JSON: { "title", "alert", "topology", "metrics", "logs", "alerts" }'}
+                    rows={14}
+                    bg="terminal.inputBg"
+                    border="1px solid"
+                    borderColor="terminal.muted"
+                    borderRadius="md"
+                    color={textColor}
+                    fontFamily="mono"
+                    fontSize="xs"
+                    spellCheck={false}
+                    _placeholder={{ color: 'terminal.muted' }}
+                    _focus={{ borderColor: accentColor, boxShadow: 'none' }}
+                  />
+                </VStack>
               )}
 
               {sreMode === 'live' && (
